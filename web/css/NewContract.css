@@ -1,0 +1,30 @@
+.new-contract-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; }
+  .new-contract-container .new-contract-navigation {
+    padding: 10px;
+    width: 25%;
+    height: 100vh;
+    border-right-color: lavender;
+    border-right-width: 1px;
+    border-right-style: solid; }
+    .new-contract-container .new-contract-navigation button {
+      width: 100%;
+      margin-bottom: 10px; }
+  .new-contract-container .new-contract {
+    padding: 10px;
+    width: 74%;
+    height: 100vh; }
+    .new-contract-container .new-contract .contract-types {
+      display: none; }
+    .new-contract-container .new-contract .selected-lands {
+      display: none; }
+    .new-contract-container .new-contract .holder {
+      display: none; }
+    .new-contract-container .new-contract .contract-data {
+      display: none; }
+    .new-contract-container .new-contract .contract-preview {
+      display: none; }
+
+/*# sourceMappingURL=NewContract.css.map */

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block body %}
+<div class="loader-background">
+    <div class="loader">
+    </div>
+</div>
+
+
+<section class="list-lands">
+   {{ render(controller('RozzBundle:Lands:viewFiltredLands',{ 'num': 'all', 'mest' : 'all', 'zem':'all' })) }}
+</section>
+<section class="list-contracts inactive">
+    {{ render(controller('RozzBundle:Contracts:contractsList')) }}
+</section>
+<section class="list-holders inactive">
+    {{ render(controller('RozzBundle:HoldersContraller:listHolders')) }}
+</section>
+<section class="new-contract inactive">
+    <div class="row">
+        <div class="col-sm-2 new-document-nav">
+            <button>Вид договор</button> <br>
+            <button>Имоти</button> <br>
+            <button>Наемател</button> <br>
+            <button>Срок/Заповед</button> <br>
+            <button>Преглед/Запазване</button> <br>
+            <button>Отказ</button> <br>
+        </div>
+        <div class="col-sm-10 new-document">
+            <section class="contract-type">
+               {{ render(controller('RozzBundle:Contracts:selectNewContractType')) }}
+            </section>
+            <section class='selected-lands inactive'>
+                {{ render(controller('RozzBundle:Contracts:manageSelected')) }}
+            </section>
+            <section class='holder'>
+                {{ render(controller('RozzBundle:Contracts:selectHolder')) }}
+            </section>
+            <section class="contract-data inactive">
+                {{ render(controller('RozzBundle:Contracts:newContract')) }}
+            </section>
+            <section class="preview inactive">
+                {{ render(controller('RozzBundle:Contracts:previewContract')) }}
+            </section>
+        </div>
+    </div>
+</section>
+<section class="statistics inactive">
+    {{ render(controller('RozzBundle:Contracts:contractsStatistics')) }}
+</section>
+
+{% endblock %}

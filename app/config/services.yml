@@ -1,0 +1,29 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    #service_name:
+    #    class: RozzBundle\Directory\ClassName
+    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app_settings_service:
+        class: RozzBundle\Services\AppSettingsService
+    csv_file_service:
+        class: RozzBundle\Services\CsvService
+    form_handler_service:
+        class: RozzBundle\Services\FormHandler
+    contract_service:
+        class: RozzBundle\Services\ContractService
+        arguments: ["@service_container"]
+    lands_service:
+        class: RozzBundle\Services\LandsService
+        arguments: ["@service_container", "@contract_service"]
+#за достъп на parameters.yml от сървиса -> подавам ContainerInterface на конструктора на сървиса!!
+    db_backup_service:
+        class: RozzBundle\Services\BackUpService
+        arguments: ['%database_host%','%database_name%','%database_user%','%database_password%']
+    new_contract_service:
+        class: RozzBundle\Services\NewContractService
+    egn_bulstat_sevrice:
+        class: RozzBundle\Services\EgnBulstatService

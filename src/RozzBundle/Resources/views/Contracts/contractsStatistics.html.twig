@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block body %}
+<div class="jumbotron">
+
+
+    {{ form_start(searchForm) }}
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_label(searchForm.search) }}
+            {{ form_errors(searchForm.search) }}
+            {{ form_widget(searchForm.search) }}
+            <input type="submit" value="Търси">
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+    </div>
+    {{ form_end(searchForm) }}
+    <hr>
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+    <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Наемател</th>
+            <th>Имоти/площ</th>
+            <th>Срок</th>
+        </tr>
+        </thead>
+        <tbody>
+        {# table body #}
+        {% for contract in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+            <tr>
+                <td>
+                    {{ contract.num }}
+                </td>
+                <td>
+                    {{ contract.holder.name }}
+                </td>
+                <td>
+                    {% for usedArea in contract.usedArea  %}
+                        {{ usedArea.land.num }}, м.{{ usedArea.land.mest.name }}, зем.{{ usedArea.land.zem.name }},{{ usedArea.land.ntp.name }} - {{ usedArea.area }}дка. <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ contract.expire|date('Y-m-d') }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

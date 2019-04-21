@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron" style="padding: 20px">
+        {{ form_start(form) }}
+        {{ form_label(form.comment) }}<br>
+        {{ form_widget(form.comment) }}<br>
+        <input class="btn btn-success" type="submit" value="Добави">
+        {% if comment %}
+        <a href="{{ path('rozz_lands_deletecomment',{'id':comment.id}) }}" class="btn btn-danger"> Изтриване</a>
+        {% endif %}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

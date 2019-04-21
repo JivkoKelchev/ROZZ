@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<div class="jumbotron">
+    <a class="btn btn-default" href="{{ path('input') }}">
+        <span class="glyphicon glyphicon-log-in"> Добавяне на имоти</span>
+    </a><br><br>
+    <a class="btn btn-default" href="{{ path('select_mayor') }}">
+        <span class="glyphicon glyphicon-user"> Избери/Добави Кмет</span>
+    </a><br><br>
+    <a class="btn btn-default" href="{{ path('add_examiners') }}">
+        <span class="glyphicon glyphicon-user"> Добави Съгласувал</span>
+    </a><br><br>
+    {#<a href="{{ path('register') }}" class="btn btn-primary ">Регистрация на нов потребител</a>#}
+    <a class="btn btn-default" href="{{ path('register') }}">
+        <span class="glyphicon glyphicon-user"> Регистрация на нов потребител</span>
+    </a><br><br>
+    <a class="btn btn-default" href="{{ path('db_dump') }}">
+        <span class="glyphicon glyphicon-floppy-disk"> Запази цялата база данни във файл</span>
+    </a><br><br>
+    <a class="btn btn-default" href="{{ path('set_current_agro_year') }}">
+        <span class="glyphicon glyphicon-floppy-disk"> Задаване на настояща стопанска година</span>
+    </a><br><br>
+
+</div>
+
+{% endblock %}

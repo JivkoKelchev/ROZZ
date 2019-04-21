@@ -1,0 +1,9 @@
+{% for contract in contracts %}
+
+    <a href="{{ path('contract_view',{'id':contract.id}) }}">Договор - {{ contract.holder.name }}
+        {% if contract.type == 3 %}
+        (Анекс)
+        {% endif %}
+    </a><br>
+
+{% endfor %}

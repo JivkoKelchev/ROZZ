@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block body %}
+    <div class="jumbotron" style="padding: 20px">
+        {{ form_start(form) }}
+        {{ form_row(form.resheniq) }}
+        {{ form_row(form.application) }}
+        {#{{ form_row(form.start) }}#}
+        {#{% do form.start.setRendered() %}#}
+        {#{{ form_row(form.expire) }}#}
+        {#{% do form.expire.setRendered() %}#}
+        {{ form_row(form.years) }}
+        {{ form_row(form.neighbours) }}
+            {#{% do form.neighbours.setRendered() %}#}
+        {{ form_row(form.examiner) }}
+        <input class="col-sm-offset-2" type="submit" value="Направи договор">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

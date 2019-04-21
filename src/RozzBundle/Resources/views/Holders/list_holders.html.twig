@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+    <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Име</th>
+            <th>ЕГН</th>
+            <th>Адрес</th>
+            <th>Активни договори</th>
+            <th>Редакция</th>
+            <th>Избери</th>
+        </tr>
+        </thead>
+        <tbody>
+        {# table body #}
+        {% for holder in holders %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+            <tr>
+                <td>
+                    {{ loop.index }}
+                </td>
+                <td>
+                    {{ holder.name }}
+                </td>
+                <td>
+                    {{ holder.eGN }}
+                </td>
+                <td>
+                    {{ holder.addres }}
+                </td>
+                <td>
+                    -
+                </td>
+                <td>
+                    <a href="{{ path('edit_holder',{'id':holder.id}) }}">редакция</a>
+                </td>
+                <td>
+                    -
+                    {#<a href="{{ path('add_holder_for_contract',{'id':holder.id}) }}">добави</a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

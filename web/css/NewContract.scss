@@ -1,0 +1,42 @@
+$nav-height : 5vh;
+
+.new-contract-container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .new-contract-navigation{
+    padding: 10px;
+    width: 25%;
+    height: 100vh;
+    //background-color: lavender;
+    border-right-color: lavender;
+    border-right-width: 1px;
+    border-right-style: solid;
+    button{
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  .new-contract{
+    padding: 10px;
+    width: 74%;
+    height: 100vh;
+    .contract-types{
+      display: none;
+    }
+    .selected-lands{
+      display: none;
+    }
+    .holder{
+      display: none;
+    }
+    .contract-data{
+      display: none;
+    }
+    .contract-preview{
+      display: none;
+    }
+  }
+}

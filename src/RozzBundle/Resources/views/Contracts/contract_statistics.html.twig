@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme searchForm 'bootstrap_3_layout.html.twig' %}
+
+{#{% block stylesheets  %}#}
+    {#<link rel="stylesheet" href="{{ asset('css/contractStatistics.css') }}">#}
+{#{% endblock %}#}
+
+
+{% block body %}
+<div class="jumbotron">
+{#Time form#}
+    {{ form_start(searchForm) }}
+    {{ form_row(searchForm.all) }}
+    {{ form_row(searchForm.start) }}
+    {{ form_row(searchForm.end) }}
+    {{ form_row(searchForm.criteria) }}
+
+    <input type="submit" value="Търси">
+    {{ form_end(searchForm) }}
+    <hr>
+
+ {#If form is submited and Valid   #}
+{% if pagination %}
+    <div class="count">
+        Намерени договори : {{ pagination.getTotalItemCount }}
+    </div>
+    <hr>
+</div>
+
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <table class="table table-striped table-hover" style="width:100%" >
+        <thead>
+        <tr>
+            <th rowspan="2">№ Договор</th>
+            <th rowspan="2">Наемател</th>
+            <th colspan="7">Имоти</th>
+            <th rowspan="2">Краен срок</th>
+        </tr>
+        <tr>
+            <th>№</th>
+            <th>Местност</th>
+            <th>Землище</th>
+            <th>НТП</th>
+            <th>Площ</th>
+            <th>Цена за дка.</th>
+            <th>Обща площ</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for contract in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+            <tr>
+                <td>
+                    {{ contract.num }}
+                </td>
+                <td>
+                    {{ contract.holder.name }}
+                </td>
+
+                <td>
+                    {% for usedArea in contract.usedArea  %}
+                    {{ usedArea.land.num }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for usedArea in contract.usedArea  %}
+                    {{ usedArea.land.mest.name }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for usedArea in contract.usedArea  %}
+                    {{ usedArea.land.zem.name }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for usedArea in contract.usedArea  %}
+                    {{ usedArea.land.ntp.name }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% set totalArea = 0 %}
+                    {% for usedArea in contract.usedArea  %}
+                    {{ usedArea.area }}дка. <br>
+                        {% set totalArea = totalArea + usedArea.area %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for usedArea in contract.usedArea  %}
+                    {{ usedArea.price }} лв<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ totalArea }}
+                </td>
+                <td>
+                    {{ contract.expire|date('Y-m-d') }}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <th>
+                Общо договори:  {{ pagination.getTotalItemCount }}
+            </th>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    <div id="piechart" style="width: auto; height: 500px;"></div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['НТП', 'ДКА'],
+                {% for key,value in chartdata %}
+                ['{{ key }} - {{ value }} дка', {{ value }}],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Разпределение на договорите по НТП',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+{% endif %}
+{% endblock %}

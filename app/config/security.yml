@@ -1,0 +1,41 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        RozzBundle\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+        db:
+            entity:
+                class: RozzBundle:User
+                property: username
+    firewalls:
+
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: /.*
+            provider:
+                db
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: /
+                use_referer: true
+            logout:
+                path: logout
+                target: login
+            security: true
+            anonymous: true
+    access_control:
+        - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /page, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: home, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron" style="padding: 20px">
+        {{ form_start(form) }}
+        {{ form_label(form.type) }}<br>
+        {{ form_widget(form.type) }}
+        <input type="submit" value="Избери">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block body %}
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg|raw }}
+            {% endfor %}
+        </div>
+    {% elseif app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="well">
+        {{ form_start(form) }}
+        {{ form_row(form.num) }}
+        <hr>
+        {{ form_row(form.mest) }}
+        {{ form_row(form.newMest) }}
+        <hr>
+        {{ form_row(form.zem) }}
+        {{ form_row(form.newZem) }}
+        <hr>
+        {{ form_row(form.ntp) }}
+        {{ form_row(form.newNtp) }}
+        <hr>
+        {{ form_row(form.kat) }}
+        {{ form_row(form.newKat) }}
+        <hr>
+        {{ form_row(form.doc) }}
+        <hr>
+        {{ form_row(form.area) }}
+        <hr>
+        <input class="btn btn-default" type="submit" value="Въведи">
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

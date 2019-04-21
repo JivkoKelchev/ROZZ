@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/selectedLands.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="jumbotron" style="padding: 30px">
+        <legend>
+            Определи площа на избраните имоти за новия договор
+        </legend>
+        {% if lands %}
+            {{ form_start(form) }}
+            {% for index,land in lands %}
+                {{ form_row(form.children[index]) }}
+                {{ form_row(form.children[index+100]) }}
+                <a href="{{ path('remove_selected_land',{'id':land.id}) }}">Премахни имота</a>
+                    <hr>
+            {% endfor %}
+            <input class="col-sm-offset-2 btn btn-sm btn-success" type="submit" value="Запази">
+            {{ form_end(form) }}
+        {% else %}
+            <span style="color: red">Няма избрани имоти</span>
+        {% endif %}
+    </div>
+
+{% endblock %}

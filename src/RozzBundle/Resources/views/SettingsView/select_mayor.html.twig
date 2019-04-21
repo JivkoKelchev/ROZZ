@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+
+{% block body %}
+    <div class="jumbotron">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="col-sm-offset-2" type="submit" value="Избери">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

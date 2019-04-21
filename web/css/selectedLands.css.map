@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,aAAa;EACX,KAAK,EAAG,KAAK;;AAGf,cAAc;EACZ,KAAK,EAAE,GAAG",
+"sources": ["selectedLands.scss"],
+"names": [],
+"file": "selectedLands.css"
+}

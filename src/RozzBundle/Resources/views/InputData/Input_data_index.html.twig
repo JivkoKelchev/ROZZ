@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<div class="jumbotron row">
+    <h3 class="col-lg-offset-1">Входни данни за имоти</h3>
+    <hr>
+    <div class="panel col-md-9" style="margin: 5px">
+
+        <a class="btn btn-success" href="{{ path('input_file') }}"> Добави .csv файл от Excel</a><br>
+        <span>Файлът трябва да има следната структура:</span>
+        <table class="table">
+            <tr>
+                <th> № на имота</th>
+                <th>Местност</th>
+                <th>Землище</th>
+                <th>НТП</th>
+                <th>Категория</th>
+                <th>Площ</th>
+                <th>Заповед</th>
+            </tr>
+            <tr>
+                <td>
+                    Номерът трябва да е съставен от 6 цифри без точка.<br> Или да е представен с точка,<br>
+                    като преди и след точката не се допускат повече от 3 цифри.<br>
+                    Примери:<br>
+                    "001001" или "1.1"<br>
+                    "201003" или "201.3"
+                </td>
+                <td>
+                    Пример:<br>
+                    "БАНДЕРАТА"
+                </td>
+                <td>
+                    Пример:<br>
+                    "АБЛАНИЦА"
+                </td>
+                <td>
+                    Пример:<br>
+                    "Ливада"
+                </td>
+                <td>
+                    Пример:<br>
+                    "X"
+                </td>
+                <td>
+                    Площа трябва да е представена в ДКА!<br>
+                    Десетичният разделител трябва да е ТОЧКА!!!<br>
+                    "4.23"
+                </td>
+                <td>
+                    Записва се Номера на документа за собственост или Номера на Заповедта<br>
+                    Пример:<br>
+                    "РД-06-9/ 19.01.2012"
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+    <div class="panel col-md-2" style="margin: 5px">
+        <a class="btn btn-success" href="{{ path('input_single_land') }}">Добави еденичен имот</a><br>
+        <span>
+        Ръчно въвеждане на имоти
+    </span>
+    </div>
+</div>
+{% endblock %}

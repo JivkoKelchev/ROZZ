@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+
+{% block body %}
+    <div class="jumbotron">
+
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.eGN) }}
+        <div class="row">
+            <span class="col-xs-10 col-xs-offset-2" id="egn-check">Проверка на ЕГН или ЕИК</span>
+        </div>
+
+        {{ form_row(form.addres) }}
+        <div class="row" style="margin-left: 3px">
+            <input class="col-sm-2 col-sm-offset-2 btn btn-success" type="submit" value="Добави Наемател">
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

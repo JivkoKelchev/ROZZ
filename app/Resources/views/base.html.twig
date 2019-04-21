@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Р.О.З.З.</title>
+
+        {#<link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css">#}
+        <link rel="stylesheet" href="{{ asset('bs/css/bootstrap.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('css/NewContract.css') }}">
+
+        <!-- jQuery library -->
+        <script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+
+        
+        <!-- JavaScript for bootstrap -->
+        <script src="{{ asset('bs/js/bootstrap.js') }}"></script>
+
+        {% block stylesheets  %}
+
+        {% endblock %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    {#LOAD Animation#}
+    <div class="loader-background" style="display: none">
+        <div class="loader">
+        </div>
+    </div>
+
+{% if app.user and app.user.newContract and app.user.newContract.type == 4 %}
+    <nav class="navbar">
+{% else %}
+    <nav class="navbar navbar-inverse">
+{% endif %}
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Р.О.З.З.</a>
+            </div>
+            {% if app.user %}
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+{#Подредени в ляво#}
+                <ul class="nav navbar-nav">
+    {#дропдаун списъци#}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="glyphicon glyphicon-list"></span> Списъци <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="dropdown-item" href="{{ path('view_filtred_lands',{'num':'all','mest':'all','zem':'all'}) }}">
+                                    <span class="glyphicon glyphicon-list"></span> Имоти
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('contracts_list') }}">
+                                    <span class="glyphicon glyphicon-list"></span> Договори
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('holders_list') }}">
+                                    <span class="glyphicon glyphicon-list"></span> Наематели
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+    {#линк вид договор#}
+                    <ul class="nav navbar-nav ">
+                        <li><a href="{{ path('new_contract_type') }}"><span class="glyphicon glyphicon-file"></span> Вид договор</a></li>
+                    </ul>
+    {#дропдаун нов договор#}
+                    {% if app.user.newContract %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {% if app.user.newContract.type == 1 or app.user.newContract.type == 2 or app.user.newContract.type == null %}
+                                Нов Договор
+                            {% elseif app.user.newContract.type == 3 %}
+                                Нов Анекс
+                            {% elseif app.user.newContract.type == 4 %}
+                                Редакция
+                            {% endif %}
+                                <span class="caret"></span>
+                                <span class="badge">{{ app.user.selectedLands|length }}</span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    {% set selectedLandsOK = false %}
+                                    <a class="dropdown-item" href="{{ path('selected_lands') }}">
+                                        <span class="glyphicon glyphicon-list"></span> Имоти
+                                        {% if app.user.selectedLands|length > 0 %}
+                                            <span class="glyphicon glyphicon-ok navbar-right"></span>
+                                            {% set selectedLandsOK = true %}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li>
+                                    {% set selectedHolderOK = false %}
+
+                                    <a class="dropdown-item" href="{{ path('select_holder') }}">
+                                        <span class="glyphicon glyphicon-list"></span> Наемател
+                                        {% if app.user.newContract.holder %}
+                                            <span class="glyphicon glyphicon-ok navbar-right"></span>
+                                            {% set selectedHolderOK = true %}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li>
+                                    {% set selectedDataOK = false %}
+                                    <a class="dropdown-item" href="{{ path('new_contract') }}">
+                                        <span class="glyphicon glyphicon-list"></span> Срок/Зап.
+                                        {% if app.user.newContract.examiner and
+                                              app.user.newContract.expire and
+                                              app.user.newContract.resheniq and
+                                              app.user.newContract.application
+                                        %}
+                                            <span class="glyphicon glyphicon-ok navbar-right"></span>
+                                            {% set selectedDataOK = true %}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li>
+                                {% if selectedLandsOK and selectedHolderOK and selectedDataOK %}
+                                    <a class="dropdown-item" href="{{ path('contract_preview') }}">
+                                        <span class="glyphicon glyphicon-list"></span> Преглед/Запази
+                                    </a>
+                                {% else %}
+                                    <a style="background-color: lightpink; cursor: not-allowed" class="dropdown-item" href="#">
+                                        <span class="glyphicon glyphicon-list"></span> Преглед/Запази
+                                    </a>
+                                {% endif %}
+                                </li>
+                                {#ToDo : Да добавя опция за изчистване на новия договор!#}
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('contracts_clear_new_contract') }}">
+                                        <span class="glyphicon glyphicon-remove"></span> Откажи
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    {% endif %}{#дропдаун нов договор app.user.newContract#}
+
+                </ul>{#nav navbar-nav#}
+
+    {#линк справка#}
+                <ul class="nav navbar-nav ">
+                    <li><a href='{{ path('contracts_statistics') }}'>Справка</a></li>
+                </ul>
+
+{#Подредени в дясно#}
+                <ul class="nav navbar-nav navbar-right">
+
+        {# Линк към смяна на годината#}
+                    <li>
+                    {% if  app.session.get('agroYear')%}
+                        <a href="{{ path('set_current_agro_year') }}">{{ app.session.get('agroYear')|date('d.m.Y') }}г.</a>
+                    {% else %}
+                        <a href="{{ path('set_current_agro_year') }}">Избери стопанска година</a>
+                    {% endif %}
+                    </li>
+
+                    {% if app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('rozz_settings_settingsindex') }}">
+                                    <span class="glyphicon glyphicon-wrench"></span> Администратор
+                                </a>
+                            </li>
+                        {% endif %}
+                    <li>
+                        <a href={{ path('userProfile') }}>
+                            <span class="glyphicon glyphicon-user"></span> {{ app.user.name }}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href={{ path('logout') }}>Изход</a>
+                    </li>
+                    {% else %}
+                        <li><a href={{ path('login') }}>Вход</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+{#Флаш бег рендер#}
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% elseif app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{#БОДИ#}
+    {% block body %}
+
+
+
+
+
+    {% endblock %}
+        {#<script src="{{ asset('js/newContract.js') }}"></script>#}
+        <script src="{{ asset('js/egnValidator.js') }}"></script>
+        <script src="{{ asset('js/contractStatistics.js') }}"></script>
+
+        <script src="{{ asset('js/jquery.toaster.js') }}"></script>
+
+        <script src="{{ asset('js/main.js') }}"></script>
+    </body>
+</html>
