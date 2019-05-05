@@ -36,6 +36,4 @@ class NewContractService
 
         return $messageArray;
     }
-
-
 }

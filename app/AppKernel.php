@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new RozzBundle\RozzBundle(),
         ];
 
