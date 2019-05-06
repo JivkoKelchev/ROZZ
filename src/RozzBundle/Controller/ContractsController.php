@@ -431,16 +431,41 @@ class ContractsController extends Controller
         if($timeForm->isSubmitted() && $timeForm->isValid()){
             $formData = $timeForm->getData();
             $result = $this->get('form_handler_service')->timeContractStatistics($formData,$em);
+            //направи екселов файл с резултатите
+
+            $userName = $this->getUser()->getUserName();
+            $excelFileName = $userName.'_stats_'.uniqid().'.xls';
+
+            $excelFilePath = $this->getParameter('exl_dir') . $excelFileName;
+            $this->get('excel_service')->getContractsStatistics($result, $excelFilePath, $userName);
+
             $paginator = $this->get('knp_paginator');
             $pagination = $paginator->paginate($result['result'], /*or query NOT result */
                 $request->query->getInt('page', 1)/*page number*/,20000/*limit per page*/);
-            return $this->render('@Rozz/Contracts/contract_statistics.html.twig', ['pagination' => $pagination, 'searchForm'=>$timeForm->createView(), 'chartdata'=>$result['chart']]);
+            return $this->render('@Rozz/Contracts/contract_statistics.html.twig', ['pagination' => $pagination,
+                                                                                'searchForm'=>$timeForm->createView(),
+                                                                                'chartdata'=>$result['chart'],
+                                                                                'fileName' => $excelFileName
+                                                                                ]);
 
         }
-        return $this->render('@Rozz/Contracts/contract_statistics.html.twig',['pagination'=>false, 'searchForm'=>$timeForm->createView()]);
+        return $this->render('@Rozz/Contracts/contract_statistics.html.twig',['pagination'=>false,
+                                                                        'searchForm'=>$timeForm->createView(),
+                                                                        ]);
     }
 
 
+
+    /**
+     * @Route("/contact/statistics/download/{fileName}", name="contract_download_statistics")
+     */
+    public function downloadStatisticsAction($fileName)
+    {
+        $exlDir = $this->getParameter('exl_dir');
+        $filePath = $exlDir . $fileName;
+
+        return $this->file($filePath);
+    }
 
     /**
      * @param $id
@@ -464,5 +489,5 @@ class ContractsController extends Controller
         }
         return $this->render('@Rozz/Contracts/contract_add_num_form.html.twig',['form'=>$form->createView()]);
     }
-
 }
+

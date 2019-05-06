@@ -27,3 +27,6 @@ services:
         class: RozzBundle\Services\NewContractService
     egn_bulstat_sevrice:
         class: RozzBundle\Services\EgnBulstatService
+    excel_service:
+        class: RozzBundle\Services\ExcelService
+        arguments: ["@service_container"]

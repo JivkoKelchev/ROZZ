@@ -297,7 +297,6 @@ class ContractService
 
             $contract->setType($newContract->getType());
 
-            $statusArray = $this->container->getParameter('contracts_status_array');
             //ако договора е анекс
             if ($newContract->getType() == 3){
 
@@ -306,7 +305,7 @@ class ContractService
                     $contract->setAnnexContractId($newContract->getAnnexContractId());
                     //задавам status=>2 на договора към който е настоящия анекс)
                     $oldContract = $em->getRepository(Contracts::class)->find($newContract->getAnnexContractId());
-                    $oldContract->setStatus($statusArray['has_annex']);
+                    $oldContract->setStatus(2);
                     //отменям старите площи
                     $usedAreas = $oldContract->getUsedArea();
                     foreach ($usedAreas as $area){

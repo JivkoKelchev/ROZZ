@@ -20,11 +20,17 @@
     {{ form_end(searchForm) }}
     <hr>
 
- {#If form is submited and Valid   #}
+{#If form is submited and Valid   #}
 {% if pagination %}
     <div class="count">
         Намерени договори : {{ pagination.getTotalItemCount }}
     </div>
+
+        <a class="btn btn-success btn-sm" href={{ path('contract_download_statistics', {fileName: fileName}) }}>
+            <img src="{{ asset('icons/ms-excel.png') }}">
+            Изтегли
+        </a>
+
     <hr>
 </div>
 
