@@ -11,8 +11,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class SettingsController extends Controller
@@ -34,13 +36,36 @@ class SettingsController extends Controller
         $name = $this->getParameter('database_name');
         $time = new \DateTime('now');
         $timeString = $time->format('YmdHis');
-        //$fileName = $this->getParameter("sql_dir").$timeString.'.sql';
         $fileName = $this->get('kernel')->getRootDir().'/../web/files/sql_files/'.$timeString.'.sql';
+//        $fileName = $this->get('kernel')->getRootDir().'/../web/files/sql_files/20190601213747.sql';
         $this->get("db_backup_service")->dump($fileName);
 
         dump($host,$user,$pass,$name);
         exit;
 
+    }
+
+    /**
+     * @Route("/settings/db/import", name="db_import")
+     */
+    public function dbImportAction(Request $request){
+        $fb = $this->createFormBuilder();
+
+        $fb->add('sqlFile', FileType::class, ['label'=>'Избети файл', 'attr'=>['accept'=>'.sql']]);
+        $form = $fb->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $file stores the uploaded PDF file
+            /**
+             * @var UploadedFile $file
+             */
+            $formData =  $form->getData();
+            $file = $formData["sqlFile"];
+            $this->get("db_backup_service")->import($file->getPathname());
+        }
+
+        return $this->render('@Rozz/SettingsView/import_database.html.twig', ['form'=>$form->createView()]);
     }
 
     /**

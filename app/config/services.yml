@@ -22,7 +22,7 @@ services:
 #за достъп на parameters.yml от сървиса -> подавам ContainerInterface на конструктора на сървиса!!
     db_backup_service:
         class: RozzBundle\Services\BackUpService
-        arguments: ['%database_host%','%database_name%','%database_user%','%database_password%']
+        arguments: ["@service_container"]
     new_contract_service:
         class: RozzBundle\Services\NewContractService
     egn_bulstat_sevrice:

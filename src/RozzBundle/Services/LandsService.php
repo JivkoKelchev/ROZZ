@@ -10,11 +10,9 @@ namespace RozzBundle\Services;
 
 
 use Doctrine\Common\Persistence\ObjectManager;
-use RozzBundle\Entity\Contracts;
 use RozzBundle\Entity\Lands;
 use RozzBundle\Entity\UsedArea;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use RozzBundle\Services\ContractService;
 
 class LandsService
 {
