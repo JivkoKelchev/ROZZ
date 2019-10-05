@@ -30,3 +30,6 @@ services:
     excel_service:
         class: RozzBundle\Services\ExcelService
         arguments: ["@service_container"]
+    cad_service:
+        class: RozzBundle\Services\CadService
+        arguments: ["@doctrine.orm.default_entity_manager"]

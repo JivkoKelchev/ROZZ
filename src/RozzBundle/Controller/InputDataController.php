@@ -13,6 +13,7 @@ use RozzBundle\Repository\landsRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class InputDataController extends Controller
@@ -139,7 +140,7 @@ class InputDataController extends Controller
     public function readMkadCsv()
     {
         $shlokovica = file_get_contents($this->getParameter('rtf_dir').'encodeNew1.csv');
-        $shlokovica= iconv("UTF-16","UTF-8",$shlokovica);
+        $shlokovica= iconv("MIK","UTF-8",$shlokovica);
         $shlokovicaArray = explode(PHP_EOL,$shlokovica);
         $encodeArray = [];
         foreach ($shlokovicaArray as $charString){
@@ -196,4 +197,32 @@ class InputDataController extends Controller
         dump($inputString);
         exit;
     }
+
+    /**
+     * @Route("/cad" , name="cad")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function importCadAction(Request $request)
+    {
+        /**
+         * @var UploadedFile $file
+         */
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add('cadFile', FileType::class, ['label'=>'Избери фаил', 'attr'=>['accept'=>'.cad']])
+            ->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType');
+        $form = $formBuilder->getForm();
+        $form->handleRequest($request);
+
+        if($form->isValid() && $form->isSubmitted())
+        {
+            $formData = $form->getData();
+            $file = $formData['cadFile'];
+            $this->get('cad_service')->import($file->getPathname());
+        }
+
+        return $this->render('@Rozz/SettingsView/import_cad.html.twig', ['form'=>$form->createView()]);
+    }
 }
+

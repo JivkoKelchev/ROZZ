@@ -8,7 +8,8 @@
         },
         "classmap": [
             "app/AppKernel.php",
-            "app/AppCache.php"
+            "app/AppCache.php",
+            "src/camellia-master/Camellia_Converter.php"
         ]
     },
     "autoload-dev": {

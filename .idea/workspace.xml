@@ -1,22 +1,382 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/RozzBundle/Controller/ContractsController.php" line="435" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/src/RozzBundle/Services/CadService.php" line="193" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb16fec6-6d2e-4ec2-bf39-848eb70baadb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_database.html.twig" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/files/exl_files/admin_stats_5cf2bc6083ac7.xls" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/files/sql_files/20171025151935.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/files/sql_files/20180626125043.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/files/sql_files/20180805183132.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/files/sql_files/20180828014332.sql" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Entity/Cad.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Entity/Contur.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Entity/Line.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Entity/Point.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Repository/CadRepository.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Repository/ConturRepository.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Repository/LineRepository.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Repository/PointRepository.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Repository/TextsRepository.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_cad.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RozzBundle/Services/CadService.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/Camellia_Converter.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/alternativnyj.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/amiga-1251.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ansel.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/armscii-7.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/armscii-8.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/armscii-8a.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ast166-7.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ast166-8.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ast166-8a.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/atarist.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/atascii.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/baltic.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-1984.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-2003.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-eten.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-ext.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-gccs.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-hkscs-1999.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-hkscs-2001.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/big5-plus.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/bulgarian-mik.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cns11643-1986.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cns11643-1992.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp037.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp038.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1004.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1006.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1025.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1026.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1046.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1047.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1051.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1098.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1124.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1125.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1129.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1131.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1132.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1133.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1140.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1141.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1142.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1143.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1144.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1145.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1146.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1147.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1148.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1149.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1160.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1161.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1162.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1163.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1164.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1361.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1370.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1381.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1383.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp1386.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp154.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20001.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20002.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20003.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20004.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20005.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20105.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20261.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp20269.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp256.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp273.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp274.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp275.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp277.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp278.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp280.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp281.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp284.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp285.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp290.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp297.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp420.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp423.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp424.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp437.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp500.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp5104.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp5478.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp708.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp720.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp737.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp775.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp806.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp833.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp838.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp849.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp850.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp851.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp852.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp853.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp855.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp856.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp857.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp858.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp860.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp861.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp862.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp863.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp864.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp865.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp866.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp868.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp869.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp870.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp871.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp874.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp875.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp880.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp904.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp905.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp918.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp922.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp924.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp942.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp943.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp948.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp949.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp950.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp954.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cp964.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/cwi.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/dec-hanyu.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/dec-hanzi.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/dec-kanji.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/dec-mcs.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/dk-us.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ds2089.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-at-de-a.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-at-de.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-ca-fr.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-dk-no-a.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-dk-no.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-es-a.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-es-s.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-es.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-fi-se-a.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-fi-se.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-fr.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-is-friss.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-it.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-pt.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-uk.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ebcdic-us.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/euc-cn.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/euc-jis-2004.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/euc-jisx0213.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/euc-jp-ms.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/euc-jp.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/euc-kr.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/euc-tw.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/fieldata.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/gb12345-90.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/gb18030.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/gb2312.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/gbk.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/georgian-academy.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/georgian-ps.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/geostd8.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/gsm0338.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/hp-ccdc.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/hp-roman8.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ia5-german.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ia5-irv.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ia5-norwegian.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ia5-swedish.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/invariant.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-as.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-be.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-de.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-gu.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-ka.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-ma.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-or.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-pa.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-ta.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iscii-te.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/isiri-3342.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-5426.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-646-basic.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-646-irv.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-6937-2.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-6937.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-1.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-10.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-11.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-13.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-14.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-15.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-16.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-2.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-3.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-4.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-5.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-6.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-7.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-8.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-9.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-8859-supp.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-10.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-102.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-103.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-111.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-121.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-122.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-123.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-128.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-13.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-139.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-14.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-141.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-142.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-143.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-146.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-147.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-15.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-150.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-151.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-152.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-153.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-155.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-16.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-165.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-17.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-18.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-19.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-197.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-202.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-209.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-25.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-27.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-37.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-4.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-47.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-49.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-50.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-51.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-54.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-55.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-57.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-60.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-68.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-69.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-70.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-8-1.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-8-2.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-84.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-85.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-86.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-88.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-89.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-9-1.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-9-2.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-90.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-91.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-92.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-93.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-94.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-95.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-96.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-98.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/iso-ir-99.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/jis_x0201.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/jis_x0201c.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/jis_x0208.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/jis_x0212.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/jis_x0213-2000-1.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/jis_x0213-2000-2.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/jis_x0213-2004.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/johab.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/koi7.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/koi8-i.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/koi8-r.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/koi8-ru.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/koi8-t.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/koi8-u.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/koi8-uni.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ksc5601-1987.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ksc5601-1992.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ksc5636.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ksx1001.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/latin-lap.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-arabic.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-ce.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-celtic.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-chinesesimp.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-chinesetrad.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-croatian.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-cyrillic.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-dingbat.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-farsi.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-gaelic.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-greek.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-hebrew.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-icelandic.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-inuit.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-japanese.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-korean.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-roman.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-romanian.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-sami.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-symbol.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-thai.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-turkish.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mac-ukrainian.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/mulelao-1.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/nextstep.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/osnovnoj.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/petscii-shifted.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/petscii.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/posix.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/riscos-latin1.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/rk1048.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/seascii.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/shift_jis-2004.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/shift_jis.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/shift_jisx0213.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/spectrum-48k.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/stdenc.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/symbol.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/tcvn5712-1.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/tcvn5712-2.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/tds565.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/tis-620.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/tscii.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/ucode.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/us-ascii-quotes.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/us-ascii.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/us-dk.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/viscii.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/vni.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/vps.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1250.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1251.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1252.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1253.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1254.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1255.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1256.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1257.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-1258.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-31j.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/windows-sami-2.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/camellia-master/ucstable/zdingbat.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="$PROJECT_DIR$/.idea/php.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.yml" afterPath="$PROJECT_DIR$/app/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RozzBundle/Controller/SettingsController.php" afterPath="$PROJECT_DIR$/src/RozzBundle/Controller/SettingsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/settings_index.html.twig" afterPath="$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/settings_index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RozzBundle/Services/BackUpService.php" afterPath="$PROJECT_DIR$/src/RozzBundle/Services/BackUpService.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RozzBundle/Services/LandsService.php" afterPath="$PROJECT_DIR$/src/RozzBundle/Services/LandsService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RozzBundle/Controller/InputDataController.php" afterPath="$PROJECT_DIR$/src/RozzBundle/Controller/InputDataController.php" />
     </list>
     <ignored path=".idea/" />
     <ignored path="web/files/exl_files/admin_stats_5cf2bc6083ac7.xls" />
@@ -51,67 +411,43 @@
       <file leaf-file-name="parameters.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="44" />
+            <state relative-caret-position="60">
+              <caret line="4" column="30" lean-forward="false" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Controller/SettingsController.php">
+      <file leaf-file-name="Contur.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Contur.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="25" column="30" lean-forward="false" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+            <state relative-caret-position="2805">
+              <caret line="188" column="33" lean-forward="false" selection-start-line="188" selection-start-column="33" selection-end-line="188" selection-end-column="33" />
               <folding>
-                <element signature="e#2388#2434#0#PHP" expanded="true" />
+                <element signature="e#37#85#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings_index.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/settings_index.html.twig">
+      <file leaf-file-name="Line.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Line.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="55" lean-forward="false" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
+            <state relative-caret-position="2475">
+              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
               <folding>
-                <element signature="e#12#26#0#Twig" expanded="true" />
+                <element signature="e#37#85#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="import_database.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_database.html.twig">
+      <file leaf-file-name="Point.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Point.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
-              <folding>
-                <element signature="e#52#91#0#Twig" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BackUpService.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Services/BackUpService.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="36" column="5" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+            <state relative-caret-position="3135">
+              <caret line="209" column="5" lean-forward="false" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LandsService.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Services/LandsService.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="14" column="61" lean-forward="false" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
-              <folding>
-                <element signature="e#6#89#0#PHP" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -119,9 +455,31 @@
       <file leaf-file-name="services.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/services.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="25" lean-forward="false" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
+            <state relative-caret-position="150">
+              <caret line="10" column="45" lean-forward="false" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="import_cad.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_cad.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CadService.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/RozzBundle/Services/CadService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="136" column="44" lean-forward="true" selection-start-line="136" selection-start-column="44" selection-end-line="136" selection-end-column="44" />
+              <folding>
+                <element signature="e#123#154#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,10 +496,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>examiner</find>
-      <find>user</find>
-      <find>newCo</find>
-      <find>land</find>
       <find>еде</find>
       <find>date</find>
       <find>namespace</find>
@@ -168,6 +522,10 @@
       <find>contracts_statu</find>
       <find>setUsed</find>
       <find>/settings/db/dump</find>
+      <find>e</find>
+      <find>encod</find>
+      <find>encode</find>
+      <find>encodeN</find>
     </findStrings>
     <dirStrings>
       <dir>C:\ROZZ\app\config</dir>
@@ -179,17 +537,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/RozzBundle/Controller/NewContractController.php" />
-        <option value="$PROJECT_DIR$/src/RozzBundle/Resources/bs/js/bootstrap.js" />
-        <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/Lands/lands_getActiveContracts_partial.html.twig" />
-        <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/NewContract/NewContract.html.twig" />
-        <option value="$PROJECT_DIR$/src/RozzBundle/Services/EgnBulstatService.php" />
-        <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/Holders/create_holders.html.twig" />
-        <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/Contracts/select_holder.html.twig" />
-        <option value="$PROJECT_DIR$/web/js/main.js" />
-        <option value="$PROJECT_DIR$/web/css/contractStatistics.scss" />
-        <option value="$PROJECT_DIR$/web/js/contractStatistics.js" />
-        <option value="$PROJECT_DIR$/src/RozzBundle/Controller/SecurityController.php" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/Security/registration.html.twig" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/Security/user_change_password.html.twig" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Controller/UsersController.php" />
@@ -223,13 +570,24 @@
         <option value="$PROJECT_DIR$/src/RozzBundle/Services/ExcelService.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/Contracts/contract_statistics.html.twig" />
-        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
-        <option value="$PROJECT_DIR$/app/config/services.yml" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Services/LandsService.php" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_database.html.twig" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Controller/SettingsController.php" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Services/BackUpService.php" />
         <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/settings_index.html.twig" />
+        <option value="$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_cad.html.twig" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="C:/IcarTest_xampp/htdocs/IcarTest/ImportCadFile_inc.php" />
+        <option value="$PROJECT_DIR$/src/RozzBundle/Controller/InputDataController.php" />
+        <option value="$PROJECT_DIR$/src/RozzBundle/camellia-master/converter.php" />
+        <option value="$PROJECT_DIR$/src/camellia-master/Camellia_Converter.php" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
+        <option value="$PROJECT_DIR$/src/RozzBundle/Entity/Contur.php" />
+        <option value="$PROJECT_DIR$/src/RozzBundle/Entity/Line.php" />
+        <option value="$PROJECT_DIR$/src/RozzBundle/Entity/Point.php" />
+        <option value="$PROJECT_DIR$/app/config/services.yml" />
+        <option value="$PROJECT_DIR$/src/RozzBundle/Services/CadService.php" />
       </list>
     </option>
   </component>
@@ -245,8 +603,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="PhpDebugGeneral" xdebug_force_break_when_no_path_mapping="false" xdebug_force_break_when_outside_project="false" />
   <component name="PhpServers">
-    <servers />
+    <servers>
+      <server host="127.0.0.1" id="c65c561c-0ba0-48a8-a433-41543152ac1f" name="127.0.0.1" port="8000" />
+    </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true">
     <include_path>
@@ -328,6 +689,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.jetbrains.php.config.library.PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ROZZ" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ROZZ" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -374,6 +745,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="files" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ROZZ" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ROZZ" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -414,63 +803,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ROZZ" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ROZZ" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RozzBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SettingsView" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ROZZ" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ROZZ" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RozzBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
+              <option name="myItemId" value="Entity" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -526,20 +859,23 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="last_opened_file_path" value="C:/IcarTest_xampp/htdocs" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="SearchEverywhereHistoryKey" value="land&#9;FILE&#9;file://C:/ROZZ/src/RozzBundle/Services/LandsService.php&#10;Land&#9;FILE&#9;file://C:/ROZZ/src/RozzBundle/Services/LandsService.php&#10;SettingsCon&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="service&#9;FILE&#9;file://C:/ROZZ/app/config/services.yml&#10;parame&#9;FILE&#9;file://C:/ROZZ/app/config/parameters.yml&#10;land&#9;FILE&#9;file://C:/ROZZ/src/RozzBundle/Services/LandsService.php&#10;Land&#9;FILE&#9;file://C:/ROZZ/src/RozzBundle/Services/LandsService.php&#10;SettingsCon&#9;null&#9;null" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\ROZZ\src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\ROZZ\web\css" />
       <recent name="C:\ROZZ\src\RozzBundle\Resources" />
@@ -560,7 +896,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JavaScript Debug.CadService.php">
+    <configuration default="false" name="CadService.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/src/RozzBundle/Services/CadService.php">
+      <method />
+    </configuration>
+    <configuration default="false" name="CadService.php" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/ROZZ/src/RozzBundle/Services/CadService.php">
+      <method />
+    </configuration>
     <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
       <PhpTestRunnerSettings />
       <method />
@@ -628,6 +970,16 @@
       <recursive>false</recursive>
       <method />
     </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="PHP Script.CadService.php" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.CadService.php" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.CadService.php" />
+        <item index="1" class="java.lang.String" itemvalue="PHP Script.CadService.php" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -729,7 +1081,8 @@
       <workItem from="1557152206106" duration="906000" />
       <workItem from="1558553880673" duration="27000" />
       <workItem from="1559411419210" duration="4746000" />
-      <workItem from="1559416417148" duration="3028000" />
+      <workItem from="1559416417148" duration="38472000" />
+      <workItem from="1570285305476" duration="131000" />
     </task>
     <task id="LOCAL-00001" summary="added Liuggio\ExcelBundle\LiuggioExcelBundle">
       <created>1557049501269</created>
@@ -745,11 +1098,25 @@
       <option name="project" value="LOCAL" />
       <updated>1557153102247</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added DB import from sql file">
+      <created>1559419515319</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1559419515319</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added DB import from sql file">
+      <created>1559419580982</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1559419580982</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="750503000" />
+    <option name="totallyTimeSpent" value="786078000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -763,16 +1130,16 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2193646" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24357034" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268921" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20128824" sideWeight="0.5030257" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28341386" sideWeight="0.5075643" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32829046" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969743" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49919486" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16490166" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25925925" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25764894" sideWeight="0.4924357" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -809,99 +1176,19 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added Liuggio\ExcelBundle\LiuggioExcelBundle" />
     <MESSAGE value="added Excel export of contract stats" />
-    <option name="LAST_COMMIT_MESSAGE" value="added Excel export of contract stats" />
+    <MESSAGE value="added DB import from sql file" />
+    <option name="LAST_COMMIT_MESSAGE" value="added DB import from sql file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/RozzBundle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="12" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/SelectedLand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3930">
-          <caret line="264" column="7" lean-forward="false" selection-start-line="264" selection-start-column="7" selection-end-line="264" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Controller/LandsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1815">
-          <caret line="141" column="20" lean-forward="false" selection-start-line="141" selection-start-column="20" selection-end-line="141" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/ApplicationSettingsRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/CommentsRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/contractsRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/docRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/ExaminersRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/HoldersRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/katRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/RozzBundle/Repository/landsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1057,25 +1344,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Lands.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/UsedArea.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="103" column="52" lean-forward="false" selection-start-line="103" selection-start-column="52" selection-end-line="103" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/RozzBundle/Controller/ContractsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6330">
           <caret line="444" column="34" lean-forward="false" selection-start-line="444" selection-start-column="34" selection-end-line="444" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1090,7 +1362,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1035">
           <caret line="74" column="80" lean-forward="false" selection-start-line="74" selection-start-column="80" selection-end-line="74" selection-end-column="80" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1113,15 +1384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-855">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="25" lean-forward="false" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1129,17 +1391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="14" column="61" lean-forward="false" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
-          <folding>
-            <element signature="e#6#89#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1147,19 +1398,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="15" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="48" selection-end-column="14" />
-          <folding>
-            <element signature="e#12#26#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_database.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
-          <folding>
-            <element signature="e#52#91#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1167,26 +1405,151 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
           <caret line="36" column="5" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Controller/SettingsController.php">
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/InputData/Input_data_index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="25" column="30" lean-forward="false" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
-          <folding>
-            <element signature="e#2388#2434#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="225">
+          <caret line="67" column="14" lean-forward="false" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/settings_index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="55" lean-forward="false" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
+        <state relative-caret-position="450">
+          <caret line="30" column="14" lean-forward="false" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_database.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/SPL/SPL_c1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="61" column="24" lean-forward="false" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Controller/SettingsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="74" column="30" lean-forward="false" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/IcarTest_xampp/htdocs/IcarTest/ImportCadFile_inc.php" />
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Controller/InputDataController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="120">
+            <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="18" lean-forward="false" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/camellia-master/Camellia_Converter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-133">
+          <caret line="775" column="16" lean-forward="false" selection-start-line="775" selection-start-column="16" selection-end-line="775" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Lands.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="82" column="7" lean-forward="false" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/UsedArea.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="33" column="84" lean-forward="false" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Point.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3135">
+          <caret line="209" column="5" lean-forward="false" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Resources/views/SettingsView/import_cad.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="30" lean-forward="false" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Contur.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="188" column="33" lean-forward="false" selection-start-line="188" selection-start-column="33" selection-end-line="188" selection-end-column="33" />
           <folding>
-            <element signature="e#12#26#0#Twig" expanded="true" />
+            <element signature="e#37#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="45" lean-forward="false" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Entity/Line.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2475">
+          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+          <folding>
+            <element signature="e#37#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RozzBundle/Services/CadService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="136" column="44" lean-forward="true" selection-start-line="136" selection-start-column="44" selection-end-line="136" selection-end-column="44" />
+          <folding>
+            <element signature="e#123#154#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
