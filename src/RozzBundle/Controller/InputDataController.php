@@ -128,7 +128,7 @@ class InputDataController extends Controller
     }
 
     /**
-     * @Route("/convert")
+     * @Route("/convertZEM")
      * вход от ексел-мкад"шльоковица" запазена като Unicode (UTF-16)
      *  1. копирай данните от excel в notepad и запази файла като proba.csv - unicode в /web/files
      *  2. замести табовете с  точка и запетая (;)
@@ -195,6 +195,46 @@ class InputDataController extends Controller
         fwrite($newCsvFile, $inputString);
         fclose($newCsvFile);
         dump($inputString);
+        exit;
+    }
+
+    /**
+     * @Route("/convertCAD")
+     * this method convert MIK files to UTF8
+     *
+     */
+    public function convertMkadExportFilesToUtf8()
+    {
+        //make translator
+        $transTable = file_get_contents($this->getParameter('rtf_dir').'MIKtoUTF-8.txt');
+        $transTableArray = explode(PHP_EOL,$transTable);
+
+        $encodeArray = [];
+        foreach ($transTableArray as $charString){
+            $charArray = explode(';',$charString);
+            $encodeArray[$charArray[0]]=$charArray[1];
+        }
+
+        //get files
+        $directory = $this->getParameter('rtf_dir').'convertMIK';
+        $files = array_diff(scandir($directory), array('..', '.'));
+
+        //loop all files
+        foreach ($files as $fileName){
+            //get content
+            $forTranslate = file_get_contents($this->getParameter('rtf_dir').'convertMIK/'.$fileName);
+
+            //replace all letters
+            foreach ($encodeArray as $key => $value){
+                $forTranslate = str_replace($key,$value,$forTranslate);
+            }
+
+            $newCsvFile = fopen($this->getParameter('rtf_dir').'convertedUTF-8/'.$fileName, "w");
+            fwrite($newCsvFile, $forTranslate);
+            fclose($newCsvFile);
+
+            dump($fileName);
+        }
         exit;
     }
 

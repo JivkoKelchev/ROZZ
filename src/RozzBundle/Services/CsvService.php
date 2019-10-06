@@ -60,27 +60,27 @@ class CsvService
 
             if (count($landArray) >= 7){
 //TO DO land overwrite check!!!
-                if(strlen($landArray[0])!= 6 && strpos($landArray[0], '.') == false ){
-                    $errors[]='Грешка в ред '.$row.'! Номера на имота трябва да бъде с 6 цифри! въведен е номер "'.$landArray[0].'"';
-                }
-                if(strpos($landArray[0], '.') !== false){
-                    $numberArray = explode('.',$landArray[0]);
-                    $newNumber='';
-                    foreach ($numberArray as $partNumber){
-                        if (strlen($partNumber)==1){
-                            $partNumber = '00'.$partNumber;
-                            $newNumber.=$partNumber;
-                        }elseif (strlen($partNumber)==2){
-                            $partNumber = '0'.$partNumber;
-                            $newNumber.=$partNumber;
-                        }elseif (strlen($partNumber)==3){
-                            $newNumber.=$partNumber;
-                        }else{
-                            $errors[]='Грешка в ред '.$row.'! Номера на имота трябва да бъде с не повече от 3 цифри преди и след точката! въведен е номер "'.$landArray[0].'"';
-                        }
-                    }
-                    $landArray[0]=$newNumber;
-                }
+//                if(strlen($landArray[0])!= 6 && strpos($landArray[0], '.') == false ){
+//                    $errors[]='Грешка в ред '.$row.'! Номера на имота трябва да бъде с 6 цифри! въведен е номер "'.$landArray[0].'"';
+//                }
+//                if(strpos($landArray[0], '.') !== false){
+//                    $numberArray = explode('.',$landArray[0]);
+//                    $newNumber='';
+//                    foreach ($numberArray as $partNumber){
+//                        if (strlen($partNumber)==1){
+//                            $partNumber = '00'.$partNumber;
+//                            $newNumber.=$partNumber;
+//                        }elseif (strlen($partNumber)==2){
+//                            $partNumber = '0'.$partNumber;
+//                            $newNumber.=$partNumber;
+//                        }elseif (strlen($partNumber)==3){
+//                            $newNumber.=$partNumber;
+//                        }else{
+//                            $errors[]='Грешка в ред '.$row.'! Номера на имота трябва да бъде с не повече от 3 цифри преди и след точката! въведен е номер "'.$landArray[0].'"';
+//                        }
+//                    }
+//                    $landArray[0]=$newNumber;
+//                }
                 if (!in_array($landArray[1],$mestNames) ){
                     $warnings[]='Внимание! На имот '.$landArray[0].' (ред: '.$row.') е зададена местност, която не присъства в базата данни!';
                 }
