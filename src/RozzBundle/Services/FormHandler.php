@@ -27,25 +27,30 @@ class FormHandler
         $qb->select();
         $queryParameters = [];
         if ($formData['num'] != null){
-            $qb->andWhere('l.num = ?0');
-            $queryParameters['0']= $formData['num'];
+            $qb->andWhere('l.num LIKE :num');
+            $queryParameters['num']= $formData['num'];
         }
         if ($formData['mest'] != null){
-            $qb->andWhere('l.mest = ?1');
+            $qb->andWhere('l.mest = :mest');
             $mest = $em->getRepository(Mest::class)->findOneBy(['name' => $formData['mest']]);
-            $queryParameters['1']= $mest;
+            $queryParameters['mest']= $mest;
         }
         if ($formData['zem'] != null ){
-            $qb->andWhere('l.zem = ?2');
+            $qb->andWhere('l.zem = :zem');
             $zem = $em->getRepository(Zem::class)->findOneBy(['name' => $formData['zem']]);
-            $queryParameters['2']= $zem;
+            $queryParameters['zem']= $zem;
         }
-        $lands = $qb -> setParameters(  $queryParameters )
-            ->leftJoin('l.usedArea', 'a')
+        $qb->leftJoin('l.usedArea', 'a')
             ->orderBy('l.mest', 'ASC')
             ->orderBy('a.area', 'DESC')
-            ->setMaxResults(20)
-            ->getQuery();
+            ->setMaxResults(20);
+
+        foreach ($queryParameters as $key => $parameter){
+            $parameter = ($key === 'num') ? '%'.$parameter.'%' : $parameter;
+            $qb->setParameter($key, $parameter);
+        }
+
+        $lands = $qb->getQuery();
         return $lands;
     }
 
