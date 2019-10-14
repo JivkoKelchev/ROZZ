@@ -239,11 +239,11 @@ class InputDataController extends Controller
     }
 
     /**
-     * @Route("/cad" , name="cad")
-     *
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+ * @Route("/cad" , name="cad")
+ *
+ * @param Request $request
+ * @return \Symfony\Component\HttpFoundation\Response
+ */
     public function importCadAction(Request $request)
     {
         /**
@@ -260,6 +260,38 @@ class InputDataController extends Controller
             $formData = $form->getData();
             $file = $formData['cadFile'];
             $this->get('cad_service')->import($file->getPathname());
+        }
+
+        return $this->render('@Rozz/SettingsView/import_cad.html.twig', ['form'=>$form->createView()]);
+    }
+
+
+    /**
+     * @Route("/cad-lands" , name="cad-lands")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * this route import lands from cad without coordinates
+     * !!!!!!! USE THIS METHOD
+     */
+    public function importLandsFromCadAction(Request $request)
+    {
+        /**
+         * @var UploadedFile $file
+         */
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add('cadFile', FileType::class, ['label'=>'Избери фаил', 'attr'=>['accept'=>'.cad']])
+            ->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType');
+        $form = $formBuilder->getForm();
+        $form->handleRequest($request);
+
+        if($form->isValid() && $form->isSubmitted())
+        {
+            $formData = $form->getData();
+            $file = $formData['cadFile'];
+            //pass file path to service
+            $this->get('cad_service')->loadLands($file->getPathname());
         }
 
         return $this->render('@Rozz/SettingsView/import_cad.html.twig', ['form'=>$form->createView()]);
