@@ -129,8 +129,10 @@
             {% for selectedland in lands %}
                 <li class="placeholder">
                     Имот с планоснимачен № {{ selectedland.land.num }}, м. {{ selectedland.land.mest.name }}, зем. {{ selectedland.land.zem.name }}, НТП - {{
-                    selectedland.land.ntp.name }}, с площ {{ selectedland.area }} дка. и цена за дка - {{ selectedland.price }}лв./дка;
+                    selectedland.land.ntp.name }}, с площ {{ selectedland.area }} дка. и цена за дка - {{ selectedland.price }}лв./дка.
                     <br>
+                    {% set neighboursArray = data.neighbours %}
+                    {{ neighboursArray[selectedland.land.num] }}
                     {% set totalArea = totalArea + selectedland.area %}
                     {% set totalPrice = totalPrice + selectedland.price*selectedland.area %}
                 </li>

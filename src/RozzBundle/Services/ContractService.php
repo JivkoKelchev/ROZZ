@@ -403,7 +403,11 @@ class ContractService
 
         $start = $contractEntity->getStart();
         if ($start == null){
-            $start = clone $contractEntity->getExpire();
+            /**
+             * @var \DateTime $endDate
+             */
+            $endDate = $contractEntity->getExpire();
+            $start = clone $endDate;
             $start->modify('-1 year')->modify('+1 day');
             $contractEntity->setStart($start);
         }
