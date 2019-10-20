@@ -49,6 +49,14 @@ class SelectedLand
      */
     private $price = 0;
 
+    /**
+     * @var string
+     *
+     * Used only for store neighbour data to be send in twig template.
+     * This data is not saved in DB
+     */
+    private $neighbours;
+
 
 
 
@@ -127,6 +135,15 @@ class SelectedLand
         $this->price = $price;
     }
 
+    public function getNeighbours()
+    {
+        return $this->neighbours;
+    }
+
+    public function setNeighbours($neighbours)
+    {
+        $this->neighbours = $neighbours;
+    }
 
 }
 

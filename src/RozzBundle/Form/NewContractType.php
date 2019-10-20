@@ -22,8 +22,6 @@ class NewContractType extends AbstractType
     {
         $builder->add('resheniq', TextType::class,['label'=>'Решение/Заповед'])
             ->add('application',TextType::class,['label'=>'Заявление'])
-            //->add('start', DateType::class, ['label' => 'От'])
-            //->add('expire', DateType::class,['label'=> 'До'])
             ->add('years', NumberType::class,['label'=>'За срок от [години]:'])
             ->add('neighbours', CollectionType::class,
                 ['entry_type' => TextareaType::class,

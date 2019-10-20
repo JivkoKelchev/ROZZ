@@ -253,6 +253,9 @@ class ContractsController extends Controller
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        /**
+         * @var NewContracts $newContract
+         */
         $newContract = $em->getRepository(NewContracts::class)->findOneBy(['user'=>$user]);
 
         $selectedLands = $em->getRepository(SelectedLand::class)->findBy(['user'=>$user]);
@@ -263,11 +266,20 @@ class ContractsController extends Controller
         if ($newContract->getType() == 3){
             $differenceHtml = $this->get('contract_service')->getAnnexDifference($newContract,$em,$this->getUser());
         }
+        //
+        $neighbours = $newContract->getNeighbours(true);
+        //set neighbours to selected lands
+        foreach ($selectedLands as $land){
+            if($neighbours[$land->getLand()->getNum()]){
+                $land->setNeighbours($neighbours[$land->getLand()->getNum()]);
+            }
+        }
+
         if ($this->get('contract_service')->checkDataForContract($user,$em)){
             return $this->render('@Rozz/Contracts/contracts_preview_template.html.twig',
                 ['data'=>$newContract,
-                    'lands'=>$selectedLands,
-                    'difference' => $differenceHtml]);
+                'lands'=>$selectedLands,
+                'difference' => $differenceHtml]);
         }else{
             //ToDo: Error flashbag
             return $this->redirectToRoute('view_filtred_lands');
@@ -290,6 +302,14 @@ class ContractsController extends Controller
         $differenceHtml = '';
         if ($contract->getType() == 3){
            $differenceHtml = $this->get('contract_service')->getAnnexDifference($contract,$em,$contract->getUser());
+        }
+        //
+        $neighbours = $contract->getNeighbours(true);
+        //set neighbours to selected lands
+        foreach ($contract->getUsedArea() as $area){
+            if($neighbours[$area->getLand()->getNum()]){
+                $area->setNeighbours($neighbours[$area->getLand()->getNum()]);
+            }
         }
         return $this->render('@Rozz/Contracts/contract_view.html.twig',
             ['data'=>$contract,

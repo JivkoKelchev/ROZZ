@@ -55,7 +55,13 @@ class UsedArea
      */
     private $active;
 
-
+    /**
+     * @var string
+     *
+     * Used only for store neighbour data to be send in twig template.
+     * This data is not saved in DB
+     */
+    private $neighbours;
 
 
 
@@ -154,6 +160,15 @@ class UsedArea
         $this->active = $active;
     }
 
+    public function getNeighbours()
+    {
+        return $this->neighbours;
+    }
+
+    public function setNeighbours($neighbours)
+    {
+        $this->neighbours = $neighbours;
+    }
 
 }
 
