@@ -1160,7 +1160,7 @@ class CadService
 
                 $area = $this->areasArr[$id];
                 $area = $area/1000;
-                $area = round($area, 2);
+                $area = round($area, 3);
 
                 $landEntity->setArea($area);
 
