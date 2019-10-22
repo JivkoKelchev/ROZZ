@@ -145,7 +145,7 @@
             За срок от&nbsp;<strong>
                 {% set interval = data.expire.diff(data.start)%}
                 {% if interval|date('%y') > 1 %}
-                    {{ interval|date('%y')}} стопански години
+                    {{ interval|date('%y') + 1}} стопански години
                 {% else %}
                     една стопанска година
                 {% endif %}
