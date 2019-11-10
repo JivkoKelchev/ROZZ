@@ -21,7 +21,7 @@ use RozzBundle\Entity\Zem;
 
 class FormHandler
 {
-    public function landFilter(array $formData, EntityManager $em)
+    public function landFilter(array $formData, EntityManager $em, $limitFlag = true )
     {
         $qb = $em->getRepository(Lands::class)->createQueryBuilder('l');
         $qb->select();
@@ -42,8 +42,11 @@ class FormHandler
         }
         $qb->leftJoin('l.usedArea', 'a')
             ->orderBy('l.mest', 'ASC')
-            ->orderBy('a.area', 'DESC')
-            ->setMaxResults(20);
+            ->orderBy('a.area', 'DESC');
+
+        if($limitFlag){
+            $qb->setMaxResults(20);
+        }
 
         foreach ($queryParameters as $key => $parameter){
             $parameter = ($key === 'num') ? '%'.$parameter.'%' : $parameter;

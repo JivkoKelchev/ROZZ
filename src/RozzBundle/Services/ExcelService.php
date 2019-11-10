@@ -9,6 +9,7 @@
 namespace RozzBundle\Services;
 
 
+use RozzBundle\Entity\Lands;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ExcelService
@@ -24,11 +25,8 @@ class ExcelService
     }
 
 
-    public function getContractsStatistics($contracts, $fileName, $userName)
+    public function getContractsStatistics($contracts, $fileName)
     {
-
-        $this->unlinkExcelStatFile($userName);
-
         /**
          * @var \PHPExcel $phpExcelObject
          * @var \PHPExcel_Writer_Excel5 $writer
@@ -37,11 +35,6 @@ class ExcelService
 
         $phpExcelObject->getProperties()->setCreator("ROZZ")
             ->setLastModifiedBy("ROZZ");
-//            ->setTitle("Office 2005 XLSX Test Document")
-//            ->setSubject("Office 2005 XLSX Test Document")
-//            ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
-//            ->setKeywords("office 2005 openxml php")
-//            ->setCategory("Test result file");
 
         $resultContracts = $contracts['result'];
         if(count($resultContracts) > 0){
@@ -102,6 +95,7 @@ class ExcelService
 
             // create the writer
             $writer = $this->phpExcel->createWriter($phpExcelObject, 'Excel5');
+
             $writer->save($fileName);
         }else{
 
@@ -119,5 +113,44 @@ class ExcelService
                 unlink($this->filesDir.$file);
             }
         }
+    }
+
+    public function landsExport($lands)
+    {
+        /**
+         * @var \PHPExcel $phpExcelObject
+         * @var \PHPExcel_Writer_Excel5 $writer
+         */
+        $phpExcelObject = $this->phpExcel->createPHPExcelObject($this->filesDir .'\lands.xls');
+
+        $phpExcelObject->getProperties()->setCreator("ROZZ")
+            ->setLastModifiedBy("ROZZ");
+
+        $currentRow = 2;
+        foreach ($lands as $index => $land) {
+            /**
+             * @var Lands $land
+             */
+            $phpExcelObject->setActiveSheetIndex(0)
+                ->setCellValueByColumnAndRow(0, $currentRow, $land->getNum())
+                ->setCellValueByColumnAndRow(1, $currentRow, $land->getMest()->getName())
+                ->setCellValueByColumnAndRow(2, $currentRow, $land->getZem()->getName())
+                ->setCellValueByColumnAndRow(3, $currentRow, $land->getNtp()->getName())
+                ->setCellValueByColumnAndRow(4, $currentRow, $land->getKat()->getName())
+                ->setCellValueByColumnAndRow(5, $currentRow, $land->getArea())
+                ->setCellValueByColumnAndRow(6, $currentRow, $land->getDoc()->getName());
+
+            $currentRow++;
+        }
+
+        $phpExcelObject->getActiveSheet()->setTitle('Имоти');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->phpExcel->createWriter($phpExcelObject, 'Excel5');
+        $writer->save($this->filesDir . 'lands_results.xls');
+
+        return $this->filesDir . 'lands_results.xls';
     }
 }

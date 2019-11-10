@@ -26,8 +26,14 @@
             {{ form_errors(filterForm.zem) }}
             {{ form_widget(filterForm.zem) }}
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-1">
             <input type="submit" value="Търси">
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-success btn-sm" href={{ path('lands_export', {num: filterData['num'], mest: filterData['mest'], zem:filterData['zem']}) }}>
+                <img src="{{ asset('icons/ms-excel.png') }}">
+                Изтегли
+            </a>
         </div>
     </div>
     {{ form_end(filterForm) }}

@@ -67,22 +67,6 @@ class ContractsController extends Controller
         return $this->render('@Rozz/Contracts/contract_select_type.html.twig',['form'=>$form->createView()]);
     }
 
-    /**
-     * @Route("/newAnnex/{contractId}", name = "newAnnex")
-     */
-//    public function newAnnexAction($contractId)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $user = $this->getUser();
-//        $selectedContract = $em->getRepository(Contracts::class)->find($contractId);
-//        if (!$selectedContract->getNum()){
-//            $massage = 'Избрания договор няма въведен номер!';
-//            $this->get('session')->getFlashBag()->add('error', $massage);
-//            return $this->redirectToRoute('contracts_list');
-//        }
-//        $this->get('contract_service')->setNewContractFromExistingContract($em,$user,$contractId);
-//        return $this->redirectToRoute('selected_lands');
-//    }
 
     /**
      * @Route("/ContractFromExisting/{contractId}", name = "ContractFromExisting")
@@ -454,10 +438,10 @@ class ContractsController extends Controller
             //направи екселов файл с резултатите
 
             $userName = $this->getUser()->getUserName();
-            $excelFileName = $userName.'_stats_'.uniqid().'.xls';
+            $excelFileName = 'stats_' . $userName . '_results.xls';
 
             $excelFilePath = $this->getParameter('exl_dir') . $excelFileName;
-            $this->get('excel_service')->getContractsStatistics($result, $excelFilePath, $userName);
+            $this->get('excel_service')->getContractsStatistics($result, $excelFilePath);
 
             $paginator = $this->get('knp_paginator');
             $pagination = $paginator->paginate($result['result'], /*or query NOT result */

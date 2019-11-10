@@ -21,6 +21,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -95,8 +96,21 @@ class LandsController extends Controller
         foreach ($selected as $selectedLand){
             $selectedLands[] = $selectedLand->getLand();
         }
-        return $this->render("@Rozz/Lands/view_lands.html.twig", ['lands'=>$lands, 'selectedLands'=>$selectedLands, 'pagination' => $pagination,
-                                                        'filterForm'=>$filterForm->createView()]);
+
+        //set null values to 'all'
+        foreach ($filterData as $key => $data){
+            $filterData[$key] = $filterData[$key] === null ? 'all' : $filterData[$key];
+        }
+        return $this->render(
+            "@Rozz/Lands/view_lands.html.twig",
+                [
+                    'lands'=>$lands,
+                    'selectedLands'=>$selectedLands,
+                    'pagination' => $pagination,
+                    'filterForm'=>$filterForm->createView(),
+                    'filterData' => $filterData
+                ]
+            );
     }
 
     /**
@@ -229,6 +243,28 @@ class LandsController extends Controller
         $em->remove($comment);
         $em->flush();
         return $this->redirectToRoute('view_filtred_lands',['num'=>$land->getNum(),$land->getMest()->getName(),'zem'=>$land->getZem()->getName()]);
+    }
+
+    /**
+     * @Route("/lands/export/{num}/{mest}/{zem}", name="lands_export")
+     */
+    public function exportLands($num, $mest, $zem)
+    {
+        if($num === $mest && $mest === $zem && $zem === 'all')
+        {
+            $this->get('session')->getFlashBag()->set('error', 'Твърде голяма заявка, използвай филтъра за да ограничиш резултатите.');
+            return $this->redirectToRoute('view_filtred_lands',['num'=>$num,'mest'=>$mest,'zem'=>$zem]);
+        }
+        $filterData['num'] = $num === 'all' ? null : $num;
+        $filterData['mest'] = $mest === 'all' ? null : $mest;
+        $filterData['zem'] = $zem === 'all' ? null : $zem;
+        $em = $this->getDoctrine()->getManager();
+
+        $landsQuery = $this->get('form_handler_service')->landFilter($filterData, $em, false);
+        $lands = $landsQuery->getResult();
+
+        $fileName = $this->get('excel_service')->landsExport($lands);
+        return $this->file($fileName);
     }
 
 }
