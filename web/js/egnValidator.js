@@ -138,56 +138,37 @@ function validateBulstat(input){
 }
 
 function renderEGNValidator(){
-    let formInput = $('#rozz_bundle_holder_type_eGN');
+    console.log('validator is loaded');
+
+    let formInput =  document.getElementById('rozz_bundle_holder_type_eGN');
 
     if (!formInput) {
-        formInput = $("#form_egn");
+        formInput = document.getElementById('form_egn');
     }
 
-    let input = formInput.val();
+    let input = formInput.value;
+    let egnIndicator = document.getElementById('egn-check');
 
     if (validateEgn(input) || validateBulstat(input)){
-        $("#egn-check").text('').text('Валидно.');
-        $("#egn-check").css('color','green');
+        egnIndicator.innerHTML = 'Валидно.';
+        egnIndicator.style.color = 'green';
     }else{
-        $("#egn-check").css('color','red');
-        $("#egn-check").text('').text('Невалидно ЕГН или ЕИК!');
+        egnIndicator.innerHTML = 'Невалидно ЕГН или ЕИК!';
+        egnIndicator.style.color = 'red';
     }
 
-    formInput.on("change paste keyup", function() {
+    formInput.addEventListener("change", function() {
 
-        let inputData = {'input' : input};
+        let input = formInput.value;
 
         //js валидация
         if (validateEgn(input) || validateBulstat(input)){
-            $("#egn-check").text('').text('Валидно.');
-            $("#egn-check").css('color','green');
+            egnIndicator.innerHTML = 'Валидно.';
+            egnIndicator.style.color = 'green';
         }else{
-            $("#egn-check").css('color','red');
-            $("#egn-check").text('').text('Невалидно ЕГН или ЕИК!');
+            egnIndicator.innerHTML = 'Невалидно ЕГН или ЕИК!';
+            egnIndicator.style.color = 'red';
         }
-
-
-
-        //ajax валидация
-        //$('.loader-background').show('fast');
-
-        $.ajax({url: "/valid-egn-bulstat",
-            type : 'post',
-            dataType:   'json',
-            async:      true,
-            data: inputData,
-
-            success: function(result){
-                console.log(result.toString());
-
-                // $.toaster({ priority : 'success', title : msg, message : result});
-
-                //$('.loader-background').fadeOut('fast');
-            }
-        });
-
-
 
     });
 

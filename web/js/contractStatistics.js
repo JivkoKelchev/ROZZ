@@ -4,6 +4,7 @@
 
 
 function renderStatisticForm() {
+    console.log('statistic form is loaded');
     let form = $('#form');
     form.addClass('row');
     let children = form.children();
