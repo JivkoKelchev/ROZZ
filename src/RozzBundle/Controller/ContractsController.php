@@ -435,21 +435,22 @@ class ContractsController extends Controller
         if($timeForm->isSubmitted() && $timeForm->isValid()){
             $formData = $timeForm->getData();
             $result = $this->get('form_handler_service')->timeContractStatistics($formData,$em);
-            //направи екселов файл с резултатите
 
-            $userName = $this->getUser()->getUserName();
-            $excelFileName = 'stats_' . $userName . '_results.xls';
-
-            $excelFilePath = $this->getParameter('exl_dir') . $excelFileName;
-            $this->get('excel_service')->getContractsStatistics($result, $excelFilePath);
 
             $paginator = $this->get('knp_paginator');
             $pagination = $paginator->paginate($result['result'], /*or query NOT result */
                 $request->query->getInt('page', 1)/*page number*/,20000/*limit per page*/);
+
+            //convert data to url format
+            $formData['all'] = $formData['all'] === true ? 1 : 0;
+            $formData['start'] = $formData['start'] === null ? 0 : $formData['start']->format('d-m-Y');
+            $formData['end'] = $formData['end'] === null ? 0 : $formData['end']->format('d-m-Y');
+            $formData['criteria'] = $formData['criteria'] === null ? 0 : $formData['end'];
+
             return $this->render('@Rozz/Contracts/contract_statistics.html.twig', ['pagination' => $pagination,
                                                                                 'searchForm'=>$timeForm->createView(),
                                                                                 'chartdata'=>$result['chart'],
-                                                                                'fileName' => $excelFileName
+                                                                                'formData' => $formData
                                                                                 ]);
 
         }
@@ -461,14 +462,26 @@ class ContractsController extends Controller
 
 
     /**
-     * @Route("/contact/statistics/download/{fileName}", name="contract_download_statistics")
+     * @Route("/contact/statistics/download/{all}/{start}/{end}/{criteria}", name="contract_download_statistics")
      */
-    public function downloadStatisticsAction($fileName)
+    public function downloadStatisticsAction($all, $start, $end, $criteria = null)
     {
-        $exlDir = $this->getParameter('exl_dir');
-        $filePath = $exlDir . $fileName;
+        $formData['all'] = $all == 0 ? false : true;
+        $formData['start'] = $start == 0 ? null : date_create_from_format('d-m-Y', $start);
+        $formData['end'] = $end == 0 ? null : date_create_from_format('d-m-Y', $end);
+        $formData['criteria'] = $criteria == 0 ? null : $criteria;
 
-        return $this->file($filePath);
+        $em = $this->getDoctrine()->getManager();
+        $result = $this->get('form_handler_service')->timeContractStatistics($formData,$em);
+        //направи екселов файл с резултатите
+
+        $userName = $this->getUser()->getUserName();
+        $excelFileName = 'stats_' . $userName . '_results.xls';
+
+        $excelFilePath = $this->getParameter('exl_dir') . $excelFileName;
+        $this->get('excel_service')->getContractsStatistics($result, $excelFilePath);
+
+        return $this->file($excelFilePath);
     }
 
     /**

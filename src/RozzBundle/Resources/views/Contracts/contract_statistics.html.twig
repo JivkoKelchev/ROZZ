@@ -26,7 +26,9 @@
         Намерени договори : {{ pagination.getTotalItemCount }}
     </div>
 
-        <a class="btn btn-success btn-sm" href={{ path('contract_download_statistics', {fileName: fileName}) }}>
+        <a class="btn btn-success btn-sm"
+           href={{ path('contract_download_statistics',
+                {all: formData['all'], start: formData['start'], end: formData['end'], criteria: formData['criteria']}) }}>
             <img src="{{ asset('icons/ms-excel.png') }}">
             Изтегли
         </a>
