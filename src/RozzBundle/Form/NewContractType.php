@@ -21,6 +21,7 @@ class NewContractType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('resheniq', TextType::class,['label'=>'Решение/Заповед'])
+            ->add('reason', TextType::class, ['label'=>'Основание'])
             ->add('application',TextType::class,['label'=>'Заявление'])
             ->add('years', NumberType::class,['label'=>'За срок от [години]:'])
             ->add('neighbours', CollectionType::class,

@@ -260,7 +260,7 @@ class ContractsController extends Controller
         }
 
         if ($this->get('contract_service')->checkDataForContract($user,$em)){
-            return $this->render('@Rozz/Contracts/contracts_preview_template.html.twig',
+            return $this->render('@Rozz/Contracts/contracts_preview.html.twig',
                 ['data'=>$newContract,
                 'lands'=>$selectedLands,
                 'difference' => $differenceHtml]);
@@ -274,7 +274,7 @@ class ContractsController extends Controller
     /**
      * @Route("contract/view/{id}",name="contract_view")
      */
-    public function viewContractAction(string $id)
+    public function viewContractAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $contract = $em->getRepository(Contracts::class)->find($id);

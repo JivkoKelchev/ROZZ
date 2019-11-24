@@ -48,6 +48,13 @@ class NewContracts
     private $resheniq;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="reason", type="string", length=255, nullable=true, unique=false)
+     */
+    private $reason;
+
+    /**
      *
      *
      * @ORM\Column(name="expire", type="datetime", nullable=true, unique=false)
@@ -362,6 +369,22 @@ class NewContracts
     public function setEditContractId( $editContractId)
     {
         $this->editContractId = $editContractId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReason()
+    {
+        return $this->reason;
+    }
+
+    /**
+     * @param string $reason
+     */
+    public function setReason(string $reason)
+    {
+        $this->reason = $reason;
     }
 
 }

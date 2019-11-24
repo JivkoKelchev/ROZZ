@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        #contract{
+            width : 90%;
+            border: solid 1px;
+            border-color: black ;
+            margin : 10px;
+            padding-top: 30px;
+            padding-left : 10px;
+            padding-right : 80px;
+
+        }
+        .placeholder{
+            color: blue;
+            font-size: 14pt;
+            font-family: 'Times New Roman', serif;
+            white-space: normal;
+        }
+        p   {margin: 0 -27pt 0.0001pt 0;
+            font-size: 14pt;
+            font-family: 'Times New Roman', serif;
+            color: #000000;
+            font-variant-ligatures: normal;
+            font-variant-caps: normal;
+            font-weight: 400;
+            letter-spacing: normal;
+            orphans: 2; text-indent: 0;
+            text-transform: none;
+            white-space: normal;
+            word-break:break-all;
+            widows: 2;
+            word-spacing: 0;
+            -webkit-text-stroke-width: 0;
+            text-decoration-style: initial;
+            text-decoration-color: initial;
+            text-align: justify;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {#Ако договора е анекс#}
+    {% if data.type == 3 %}
+        {#Ако няма промяна, юзъра няма право да записва анекс#}
+        {% if difference == '' %}
+            <br>
+                <h3>Няма направени промени, за да бъде създаден анекс!</h3>
+            <br>
+        {#Ако има промени, ги изброявам#}
+        {% else %}
+            <br>
+            {{ difference|raw }}
+            <br>
+            <div id="contract-tools" class="jumbotron" style="padding: 10px;position: relative;">
+                <a class="btn btn-success" href="{{ path('contract_create') }}">Запази</a>
+            </div>
+        {% endif %}
+    {#Ако не е анекс    #}
+    {% else %}
+        <div id="contract-tools" class="jumbotron" style="padding: 10px;position: relative;">
+            <a class="btn btn-success" href="{{ path('contract_create') }}">Запази</a>
+        </div>
+    {% endif %}
+
+    {#Изглед на договора#}
+
+    {% include 'RozzBundle:Contracts:contract.html.twig' %}
+
+
+{% endblock %}

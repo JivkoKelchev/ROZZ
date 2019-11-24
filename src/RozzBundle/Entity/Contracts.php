@@ -71,6 +71,13 @@ class Contracts
     /**
      * @var string
      *
+     * @ORM\Column(name="reason", type="string", length=255, nullable=true)
+     */
+    private $reason;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="application", type="string", length=255)
      */
     private $application;
@@ -470,6 +477,22 @@ class Contracts
     public function setStatus(int $status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReason()
+    {
+        return $this->reason;
+    }
+
+    /**
+     * @param mixed $reason
+     */
+    public function setReason($reason)
+    {
+        $this->reason = $reason;
     }
 
 

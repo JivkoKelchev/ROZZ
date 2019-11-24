@@ -1,71 +1,6 @@
-{% extends 'base.html.twig' %}
-
-{% block stylesheets %}
-    <style>
-        #contract{
-            width : 100%;
-            margin : 0;
-            padding-left : 10px;
-            padding-right : 80px;
-
-        }
-        .placeholder{
-            color: blue;
-            font-size: 14pt;
-            font-family: 'Times New Roman', serif;
-            white-space: normal;
-        }
-        p   {margin: 0 -27pt 0.0001pt 0;
-            font-size: 14pt;
-            font-family: 'Times New Roman', serif;
-            color: #000000;
-            font-variant-ligatures: normal;
-            font-variant-caps: normal;
-            font-weight: 400;
-            letter-spacing: normal;
-            orphans: 2; text-indent: 0;
-            text-transform: none;
-            white-space: normal;
-            word-break:break-all;
-            widows: 2;
-            word-spacing: 0;
-            -webkit-text-stroke-width: 0;
-            text-decoration-style: initial;
-            text-decoration-color: initial;
-            text-align: justify;
-        }
-    </style>
-{% endblock %}
-
-{% block body %}
-
-<div>
-    {#NEW VlEW#}
-    <div id="contract-tools" class="jumbotron" style="padding: 10px;position: relative;">
-
-        {% if data.num %}
-            <h3>Договор № {{ data.num }}</h3>
-        {% else %}
-            <a class="btn btn-default" href="{{ path('contract_add_number',{'id':data.id}) }}"><span class="glyphicon glyphicon-plus">
-                Добави номер
-                </span></a>
-        {% endif %}
-        <a class="btn btn-default" href="{{ asset('files/rtf_files/'~data.docFile) }}"><span class="glyphicon glyphicon-save-file">
-                Изтегли файл
-            </span></a>
-        <a style="position: absolute; right: 10px" class="btn btn-danger" href="{{ path('contract_delete',{'id':data.id}) }}"><span class="glyphicon glyphicon-remove">
-                Изтриване на Договор
-            </span></a>
-        {% if data.type == 3 %}
-            <span style="color: red"> Annex </span>
-        {% endif %}
-    </div>
-
-    {% if difference != null %}
-        {{ dump(difference) }}
-    {% endif %}
-
-<div id="contract">
+{% block contract %}
+    {#Изглед на договора#}
+    <div id="contract">
         <p style="text-align: center;font-size: 22pt;">
             <strong><em><u>
                         <!--Д О Г О В О Р-->
@@ -91,31 +26,37 @@
         <p>&nbsp;</p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Днес&nbsp;&hellip;&hellip;&hellip;&nbsp;год., в град Велинград на основание чл.21ал.1т.8 от ЗМСМА ивъв връзка с Решение №&nbsp;
+            Днес&nbsp;&hellip;&hellip;&hellip;&nbsp;год., в град Велинград на основание
             <span class="placeholder">
-                {{ data.resheniq }}
-            </span>
+                    {{ data.reason }},
+                </span>
+            във връзка с Решения №&nbsp;
+            <span class="placeholder">
+                    {{ data.resheniq }}
+                </span>
             &nbsp;на Общински съвет Велинград и молба вх.№&nbsp;
             <span class="placeholder">
-                {{ data.application }}
-            </span>
+            {{ data.application }}
+        </span>
             &nbsp;се сключи настоящия договор между :
         </p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             1. Община Велинград с ЕИК 000351580, представлявана от&nbsp;
             <span class="placeholder">
-                {{ mayor.name }}
-            </span>
+            {{ data.mayor.name }}
+        </span>
             ,&nbsp;наричан по-долу за краткост&nbsp;<strong>НАЕМОДАТЕЛ&nbsp;</strong>от една страна и</p>
         <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             2.
             <span class="placeholder">
-                {{ data.holder.name }}, с адрес {{ data.holder.addres }}
-            </span>
+            {{ data.holder.name }} с ЕГН/ЕИК {{ data.holder.egn }} и адрес {{ data.holder.addres }}
+        </span>
             , наричан по-долу за краткост&nbsp;<strong>НАЕМАТЕЛ</strong>&nbsp;от друга страна.
         </p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Страните се договориха за следното :
+            <br>
+            І. Предмет на договора:
         </p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -123,39 +64,38 @@
             &nbsp;представляващa имоти&nbsp;:</p>
         <ol>
 
-                {% set totalArea = 0 %}
-                {% set totalPrice = 0 %}
-                {% for selectedland in lands %}
-            <li class="placeholder">
-                Имот с планоснимачен № {{ selectedland.land.num }}, м. {{ selectedland.land.mest.name }}, зем. {{ selectedland.land.zem.name }}, НТП - {{
-                selectedland.land.ntp.name }}, с площ {{ selectedland.area }} дка. и цена за дка - {{ selectedland.price }}лв./дка;
+            {% set totalArea = 0 %}
+            {% set totalPrice = 0 %}
+            {% for selectedland in lands %}
+                <li class="placeholder">
+                    Имот с планоснимачен № {{ selectedland.land.num }}, м. {{ selectedland.land.mest.name }}, зем. {{ selectedland.land.zem.name }}, НТП - {{
+                    selectedland.land.ntp.name }}, с площ {{ selectedland.area }} дка. и цена за дка - {{ selectedland.price }}лв./дка;
                     <br>
-                    {% set neighboursArray = data.neighbours %}
-                    {{ neighboursArray[selectedland.land.num] }}
+                    {{ selectedland.neighbours }}
                     {% set totalArea = totalArea + selectedland.area %}
                     {% set totalPrice = totalPrice + selectedland.price*selectedland.area %}
-            </li>
-                {% endfor %}
+                </li>
+            {% endfor %}
         </ol>
-    <span class="placeholder">
-        С обща площ {{ totalArea }} дка.
-    </span>
+        <span class="placeholder">
+            С обща площ {{ totalArea }} дка.
+        </span>
         <p>
             За срок от&nbsp;<strong>
                 {% set interval = data.expire.diff(data.start)%}
                 {% if interval|date('%y') > 1 %}
-                    {{ interval|date('%y')}} стопански години
+                    {{ interval|date('%y') + 1}} стопански години
                 {% else %}
                     една стопанска година
                 {% endif %}
                 ,&nbsp;</strong>считано от
             &nbsp;
             <span class="placeholder">
-                {{ data.start|date('d.m.y') }}
+            {{ data.start|date('d.m.y') }}
                 &nbsp;год. до&nbsp;
                 {{ data.expire|date('d.m.y') }}
                 &nbsp;год.
-            </span>
+        </span>
         </p>
         <p>
             ІІ.Цена :
@@ -166,8 +106,8 @@
             посочения по-горе имот срещу&nbsp;&nbsp;годишен наем в размер на
             &nbsp;
             <span class="placeholder">
-                {{ totalPrice | number_format(2,'.')}}
-            </span>
+            {{ totalPrice | number_format(2,'.')}}
+        </span>
             &nbsp;лева
             /---------------------------------- лв. и ---------------------------------- ст./
             за определения срок на ползване.</p>
@@ -175,9 +115,13 @@
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Чл.3.<strong>НАЕМОДАТЕЛЯТ</strong>&nbsp;
-            има право да получи наема за текущата година не по-късно от тридесет дни преди изтичане на стопанската година,
-            както и да предоставя периодично информация и методически указания на ползвателите относно необходимите
-            мероприятия по поддържане и опазване на земеделската земя.
+            има право да получи таксата за текущата стопанска година
+            по следния начин: първа вноска в размер на половината от наемната цена в
+            срок до 10 юни на стопанската година, а втора вноска останалата част от
+            наемната цена, не по-късно от тридесет дни преди изтичане на стопанската
+            година, както и да предоставя периодично информация и методически указания
+            на ползвателите относно необходимите мероприятия по поддържане и опазване
+            на земеделската земя.
         </p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -194,14 +138,47 @@
         </p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Чл.5.Действието на настоящия договор може да бъде прекратено от всяка от страните от него с
-            едномесечно писменно предизвестие на ответната страна.
+            Чл.5.Действието на настоящия договор може да бъде прекратено от всяка от страните по него с
+            едномесечно писмено предизвестие на ответната страна.
         </p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Настоящият договор се сключи в 3/три/ еднообразни екземпляра &ndash;
-            по един за всяка от странитe.
+            Чл.6. Размера на годишната наемна цена може да се коригира в зависимост
+            от икономическите условия в страната при инфлация повече от 5% с
+            инфлационния индекс по официални данни на НСИ.
         </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Чл.7. При неплащане в срок на наемната цена определена в чл. 2 от
+            Договора, НАЕМАТЕЛЯТ дължи лихва в размер 0,1 на сто върху стойността на
+            неизпълнението за всеки ден просрочие и неустойка в размер 10 на сто от
+            дължимата годишна наемна цена.
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Настоящият договор се сключи в 4/четири/ еднообразни екземпляра – по
+            един за всяка от странитe и два за Служба по вписванията при РС Велинград.
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            <strong>НАЕМОДАТЕЛ :
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                НАЕМАТЕЛ :</strong>
+        </p>
+        <p >
+            <strong class="placeholder">
+                {{ data.mayor.name }}
+            </strong>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong class="placeholder">
+                {{ data.holder.name }}
+            </strong>
+        </p>
+        <p >
+            Кмет на Община Велинград
+        </p>
+
+        <p>&nbsp;</p>
         <p>&nbsp;</p>
 
         <p>Изготвил :</p>
@@ -217,27 +194,6 @@
             {{ data.examiner.position }}
         </p>
 
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
 
-        <p>
-            <strong>НАЕМОДАТЕЛ :
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                НАЕМАТЕЛ :</strong>
-        </p>
-        <p >
-            <strong class="placeholder">
-                {{ mayor.name }}
-            </strong>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <strong class="placeholder">
-                {{ data.holder.name }}
-            </strong>
-        </p>
-        <p >
-            Кмет на Община Велинград
-        </p>
     </div>
-</div>
-
 {% endblock %}
