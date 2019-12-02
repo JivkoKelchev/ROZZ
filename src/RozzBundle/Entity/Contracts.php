@@ -123,10 +123,19 @@ class Contracts
     private $user;
 
     /**
+     * todo to be removed after migration!
+     * use examiners!!!
      * @var Examiners
      * @ORM\ManyToOne(targetEntity="RozzBundle\Entity\Examiners", inversedBy="contracts")
      */
     private $examiner;
+
+    /**
+     * Many Contracts have Many Examiners.
+     * @ORM\ManyToMany(targetEntity="RozzBundle\Entity\Examiners", inversedBy="contractsMany")
+     * @ORM\JoinTable(name="contracts_examiners")
+     */
+    private $examiners;
 
     /**
      * @var Holders
@@ -158,6 +167,10 @@ class Contracts
 
 
 
+    public function __construct()
+    {
+        $this->examiners = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -324,7 +337,7 @@ class Contracts
     /**
      * @return Examiners
      */
-    public function getExaminer(): Examiners
+    public function getExaminer()
     {
         return $this->examiner;
     }
@@ -495,7 +508,26 @@ class Contracts
         $this->reason = $reason;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getExaminers()
+    {
+        return $this->examiners;
+    }
 
+    /**
+     * @param mixed $examiners
+     */
+    public function setExaminers($examiners)
+    {
+        $this->examiners = $examiners;
+    }
+
+    public function addExaminer(Examiners $examiner)
+    {
+        $this->examiners->add($examiner);
+    }
 
 }
 

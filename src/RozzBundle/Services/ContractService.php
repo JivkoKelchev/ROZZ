@@ -110,6 +110,8 @@ class ContractService
         $newContract->setExpire($contract->getExpire());
         $newContract->setHolder($contract->getHolder());
         $newContract->setExaminer($contract->getExaminer());
+        $newContract->setExaminers($contract->getExaminers());
+        $newContract->setReason($contract->getReason());
         if ($contract->getNeighbours() != null) {
             $newContract->setNeighbours($contract->getNeighbours());
         }
@@ -244,8 +246,15 @@ class ContractService
         $newContract = $em->getRepository('RozzBundle:NewContracts')->findOneBy(['user'=>$user]);
         if(!$selectedLands or !$newContract){
             return false;
-        }elseif(!$newContract->getExpire() or !$newContract->getApplication() or !$newContract->getResheniq()
-        or !$newContract->getExaminer() or !$newContract->getHolder()){
+        }
+        //something is not filled
+        elseif(
+            !$newContract->getExpire() ||
+            !$newContract->getApplication() ||
+            !$newContract->getResheniq() ||
+            !$newContract->getExaminers() ||
+            !$newContract->getHolder())
+        {
             return false;
         }else{
             return true;
@@ -283,7 +292,10 @@ class ContractService
 
             $contract->setExpire($newContract->getExpire());
 
-            $contract->setExaminer($newContract->getExaminer());
+            //Todo after delivery work only with examiners!!!
+            //$contract->setExaminer($newContract->getExaminer());
+
+            $contract->setExaminers($newContract->getExaminers());
 
             $contract->setHolder($newContract->getHolder());
 

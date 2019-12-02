@@ -2,6 +2,7 @@
 
 namespace RozzBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use RozzBundle\Entity\ApplicationSettings;
 use RozzBundle\Entity\Contracts;
 use RozzBundle\Entity\Examiners;
@@ -11,6 +12,7 @@ use RozzBundle\Entity\NewContracts;
 use RozzBundle\Entity\SelectedLand;
 use RozzBundle\Entity\UsedArea;
 use RozzBundle\Form\NewContractType;
+use RozzBundle\Form\SelectExaminer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
@@ -228,6 +230,64 @@ class ContractsController extends Controller
             return $this->redirectToRoute('contract_preview');
         }
         return $this->render('@Rozz/Contracts/new_contract.html.twig', ['form' => $form->createView(),'data'=>$newContractEntity]);
+    }
+
+    /**
+     * @Route("contract/add-examiner", name="add-examiner-to-contract")
+     */
+    public function addExaminerToNewContract(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $allExaminers = $em->getRepository(Examiners::class)->findAll();
+        $choices = [];
+        foreach ($allExaminers as $examiner){
+            $choices[$examiner->getName()] = $examiner->getId();
+        }
+
+        $formData = [];
+        $form = $this->createFormBuilder($formData)
+            ->add('name', ChoiceType::class,['label'=>'Наемател', 'choices' => $choices])
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $newContract = $em->getRepository(NewContracts::class)->findOneBy(['user' => $this->getUser()]);
+
+            $formData = $form->getData();
+            $examiner = $em->getRepository(Examiners::class)->find($formData['name']);
+
+            $newContract->getExaminers()->add($examiner);
+            $em->persist($newContract);
+            $em->flush();
+            return $this->redirectToRoute('new_contract');
+        }
+
+        return $this->render('@Rozz/Contracts/select_examiner.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/contract/examiner/remove/{id}", name="remove-examiner-from-new-contract")
+     */
+    public function removeExaminerFromNewContract($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $newContract = $em->getRepository(NewContracts::class)->findOneBy(['user' => $this->getUser()]);
+        /**
+         * @var ArrayCollection $examiners
+         */
+        $examiners = $newContract->getExaminers();
+        $examiner = $em->getRepository(Examiners::class)->find($id);
+
+        $examinerIndex = $examiners->indexOf($examiner);
+        $examiners->remove($examinerIndex);
+
+        $newContract->setExaminers($examiners);
+        $em->persist($newContract);
+        $em->flush();
+
+        return $this->redirectToRoute('new_contract');
     }
 
     /**

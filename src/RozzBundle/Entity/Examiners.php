@@ -37,10 +37,19 @@ class Examiners
     private $position;
 
     /**
+     * todo to be removed after Migration of many to many relation
+     * use contractsMany!!!
+     *
      * @var Contracts|ArrayCollection
      * @ORM\OneToMany(targetEntity="RozzBundle\Entity\Contracts", mappedBy="examiner")
      */
     private $contracts;
+
+    /**
+     * Many Groups have Many Users.
+     * @ORM\ManyToMany(targetEntity="RozzBundle\Entity\Contracts", mappedBy="examiners")
+     */
+    private $contractsMany;
 
     /**
      * @var NewContracts
@@ -49,7 +58,11 @@ class Examiners
      */
     private $newContract;
 
-
+    /**
+     * Many Groups have Many Users.
+     * @ORM\ManyToMany(targetEntity="RozzBundle\Entity\NewContracts", mappedBy="examiners")
+     */
+    private $newContractsMany;
 
 
 
@@ -58,6 +71,8 @@ class Examiners
     public function __construct()
     {
         $this->contracts = new ArrayCollection();
+        $this->contractsMany = new ArrayCollection();
+        $this->newContractsMany = new ArrayCollection();
     }
 
     /**
@@ -146,6 +161,38 @@ class Examiners
     public function setNewContract(NewContracts $newContract)
     {
         $this->newContract = $newContract;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContractsMany()
+    {
+        return $this->contractsMany;
+    }
+
+    /**
+     * @param mixed $contractsMany
+     */
+    public function setContractsMany($contractsMany)
+    {
+        $this->contractsMany = $contractsMany;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNewContractsMany()
+    {
+        return $this->newContractsMany;
+    }
+
+    /**
+     * @param mixed $newContractsMany
+     */
+    public function setNewContractsMany($newContractsMany)
+    {
+        $this->newContractsMany = $newContractsMany;
     }
 
 

@@ -34,7 +34,7 @@
             <span class="placeholder">
                     {{ data.resheniq }}
                 </span>
-            &nbsp;на Общински съвет Велинград и молба вх.№&nbsp;
+            &nbsp;на Общински съвет Велинград и заявление вх.№&nbsp;
             <span class="placeholder">
             {{ data.application }}
         </span>
@@ -188,12 +188,13 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </p>
 
+    {% for examiner in data.examiners %}
         <p>Съгласувал :</p>
         <p class="placeholder">
-            {{ data.examiner.name }}<br/>
-            {{ data.examiner.position }}
+            {{ examiner.name }}<br/>
+            {{ examiner.position }}
         </p>
-
+    {% endfor %}
 
     </div>
 {% endblock %}

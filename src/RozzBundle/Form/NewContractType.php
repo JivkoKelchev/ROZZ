@@ -23,13 +23,13 @@ class NewContractType extends AbstractType
         $builder->add('resheniq', TextType::class,['label'=>'Решение/Заповед'])
             ->add('reason', TextType::class, ['label'=>'Основание'])
             ->add('application',TextType::class,['label'=>'Заявление'])
-            ->add('years', NumberType::class,['label'=>'За срок от [години]:'])
+            ->add('years', NumberType::class,['label'=>'За срок от [години]'])
             ->add('neighbours', CollectionType::class,
                 ['entry_type' => TextareaType::class,
                 'label' => 'Описание на съседни имоти',
                 'required'=> false])
-            ->add('examiner', EntityType::class, ['label'=> 'Съгласувал', 'class'=> Examiners::class,
-                                                     'choice_label'=> 'name'])
+            //examiners will be managed in template by routes!!
+//            ->add('examiner', EntityType::class, ['label'=> 'Съгласувал', 'class'=> Examiners::class, 'choice_label'=> 'name'])
         ;
     }
 
