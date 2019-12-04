@@ -246,7 +246,7 @@ class ContractsController extends Controller
 
         $formData = [];
         $form = $this->createFormBuilder($formData)
-            ->add('name', ChoiceType::class,['label'=>'Наемател', 'choices' => $choices])
+            ->add('name', ChoiceType::class,['label'=>'Съгласувал', 'choices' => $choices])
             ->getForm()
         ;
 

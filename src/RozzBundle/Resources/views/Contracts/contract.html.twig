@@ -103,8 +103,11 @@
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Чл.2.<strong>НАЕМОДАТЕЛЯТ</strong>&nbsp;предоставя на&nbsp;<strong>НАЕМАТЕЛЯ</strong>&nbsp;
-            посочения по-горе имот срещу&nbsp;&nbsp;годишен наем в размер на
-            &nbsp;
+            {% if lands|length > 1 %}
+                посочените по-горе имоти срещу&nbsp;&nbsp;годишен наем в размер на
+            {% else %}
+                посочения по-горе имот срещу&nbsp;&nbsp;годишен наем в размер на
+            {% endif %}
             <span class="placeholder">
             {{ totalPrice | number_format(2,'.')}}
         </span>
