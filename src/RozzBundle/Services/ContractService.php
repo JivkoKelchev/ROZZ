@@ -286,6 +286,8 @@ class ContractService
 
             $today = new \DateTime();
 
+            $contract->setReason($newContract->getReason());
+
             $contract->setDate( new \DateTime($today->format('Y-m-d')));
 
             $contract->setStart($newContract->getStart());
@@ -385,9 +387,8 @@ class ContractService
 
     public function createRtf(Contracts $contractEntity, $templateDir)
     {
-        $fs = new Filesystem();
-
         //variables for populating RTF
+        $reason = $contractEntity->getReason();
         $reshenie = $contractEntity->getResheniq();
         $application = $contractEntity->getApplication();
         $mayor = $contractEntity->getMayor()->getName();
@@ -436,7 +437,10 @@ class ContractService
         }
 
         $creator = $contractEntity->getUser()->getName();
-        $examiner = $contractEntity->getExaminer()->getName();
+
+        //Todo make to work with examiners array collection!!
+//        $examiner = $contractEntity->getExaminer()->getName();
+        $examiner = 'test';
 
         $vars = ['reshenie'=>$reshenie,
             'application'=>$application, 'mayor'=>$mayor,

@@ -256,7 +256,15 @@ class ContractsController extends Controller
 
             $formData = $form->getData();
             $examiner = $em->getRepository(Examiners::class)->find($formData['name']);
+            /**
+             * @var ArrayCollection $examiners
+             */
+            $examiners = $newContract->getExaminers();
 
+            if($examiners->contains($examiner)){
+                $this->get('session')->getFlashBag()->add('error', $examiner->getName().' вече е добавен!');
+                return $this->render('@Rozz/Contracts/select_examiner.html.twig', ['form' => $form->createView()]);
+            }
             $newContract->getExaminers()->add($examiner);
             $em->persist($newContract);
             $em->flush();
