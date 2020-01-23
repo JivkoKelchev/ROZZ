@@ -14,8 +14,11 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\MimeType\FileinfoMimeTypeGuesser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class SettingsController extends Controller
 {
@@ -37,10 +40,28 @@ class SettingsController extends Controller
         $time = new \DateTime('now');
         $timeString = $time->format('YmdHis');
         $fileName = $this->get('kernel')->getRootDir().'/../web/files/sql_files/'.$timeString.'.sql';
-//        $fileName = $this->get('kernel')->getRootDir().'/../web/files/sql_files/20190601213747.sql';
-        $this->get("db_backup_service")->dump($fileName);
+        $output = $this->get("db_backup_service")->dump($fileName);
+        if(empty($output) && file_exists($fileName)){
+            $response = new BinaryFileResponse($fileName);
+            $mimeTypeGuesser = new FileinfoMimeTypeGuesser();
 
-        dump($host,$user,$pass,$name);
+            if($mimeTypeGuesser->isSupported()){
+                // Guess the mimetype of the file according to the extension of the file
+                $response->headers->set('Content-Type', $mimeTypeGuesser->guess($fileName));
+            }else{
+                // Set the mimetype of the file manually, in this case for a text file is text/plain
+                $response->headers->set('Content-Type', 'text/plain');
+            }
+
+            // Set content disposition inline of the file
+            $response->setContentDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                $timeString.'.sql'
+            );
+
+            return $response;
+        }
+        dump($host,$user,$pass,$name, $output);
         exit;
 
     }
@@ -62,7 +83,7 @@ class SettingsController extends Controller
              */
             $formData =  $form->getData();
             $file = $formData["sqlFile"];
-            $this->get("db_backup_service")->import($file->getPathname());
+            $output = $this->get("db_backup_service")->import($file->getPathname());
         }
 
         return $this->render('@Rozz/SettingsView/import_database.html.twig', ['form'=>$form->createView()]);

@@ -27,13 +27,12 @@ class BackUpService
 
     public function dump($filename)
     {
-        exec("$this->mysqlDump --user=$this->user --password=$this->pass --host=$this->host $this->name > $filename");
+       return exec("$this->mysqlDump --user=$this->user --password=$this->pass --host=$this->host $this->name > $filename");
     }
 
     public function import($filename)
     {
-//        var_dump("$this->mysql --user=$this->user --password=$this->pass --host=$this->host $this->name < $filename");
-        exec("$this->mysql --user=$this->user --password=$this->pass --host=$this->host $this->name < $filename");
+        return exec("$this->mysql --user=$this->user --password=$this->pass --host=$this->host $this->name < $filename");
     }
 
 }
