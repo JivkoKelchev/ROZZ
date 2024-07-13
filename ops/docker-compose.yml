@@ -1,0 +1,37 @@
+version: '2'
+services:
+  rozz:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ../:/rozz/
+    networks:
+      - rozz_network
+    depends_on:
+      - rozz_db
+
+  #MySQL Service
+  rozz_db:
+    image: mariadb:10.5.8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - dbdata:/var/lib/mysql/
+    networks:
+      - rozz_network
+
+#Using own network prevent other
+#containers to interact with this setup
+networks:
+  rozz_network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
