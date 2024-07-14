@@ -1,40 +1,29 @@
-FROM nginx:1.23.2
-
-ENV DEBIAN_FRONTEND noninteractive
-
-# Update the package repository
-RUN apt-get -qq update
-# Install fpm php and tools
-RUN apt-get -y install unzip
-RUN	apt-get install -y php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring \
-    php7.4-curl php7.4-xml php7.4-bcmath php7.4-fpm php7.4-xdebug\
-	libcurl4-gnutls-dev \
-	zlib1g zlib1g-dev \
-	openssl vim curl net-tools
-
-#xdebug conf
-RUN echo "zend_extension=$(find /usr/lib -name xdebug.so)" > /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "; Xdebug" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "xdebug.mode=develop,coverage,debug" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "xdebug.idekey=PHPSTORM" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "xdebug.start_with_request=yes" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "xdebug.log=/tmp/xdebug.log" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "xdebug.log_level=0" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "xdebug.client_port=9003" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini \
-    && echo "xdebug.client_host=host.docker.internal" >> /etc/php/7.4/cli/conf.d/20-xdebug.ini
+FROM ubuntu:20.04
+RUN apt-get update -y
+RUN apt-get install nginx -y
+RUN apt-get install software-properties-common -y
+RUN add-apt-repository ppa:ondrej/php
+RUN apt-get update -y
+RUN apt-get install -y php7.0 php7.0-cli php7.0-json php7.0-common php7.0-mysql php7.0-zip php7.0-gd php7.0-mbstring \
+            php7.0-curl php7.0-xml php7.0-bcmath php7.0-fpm php7.0-xdebug
+RUN apt-get install -y curl
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.16
 
 
 #fpm conf
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
-#nginx general conf
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY conf/www.conf /etc/php/7.0/fpm/pool.d/www.conf
+
 #nginx site conf
 RUN mkdir -p /etc/nginx/sites-enabled
-COPY conf/rozz.conf  /etc/nginx/sites-enabled/rozz.conf
+RUN rm /etc/nginx/sites-available/default
+RUN rm /etc/nginx/fastcgi_params
+COPY conf/rozz.conf  /etc/nginx/sites-available/default
+COPY conf/rozz.conf  /etc/nginx/sites-enabled/default
+COPY conf/fastcgi_params /etc/nginx/fastcgi_params
 
 EXPOSE 80
 WORKDIR /rozz/
 
 #start services
 RUN mkdir -p /run/php
-CMD nginx && php-fpm7.4 -F
+CMD nginx && php-fpm7.0 -F

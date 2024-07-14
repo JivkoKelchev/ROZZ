@@ -15,12 +15,12 @@ services:
 
   #MySQL Service
   rozz_db:
-    image: mariadb:10.5.8
+    image: mariadb
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: symfony
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MARIADB_DATABASE: symfony
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
     volumes:
       - dbdata:/var/lib/mysql/
     networks:
