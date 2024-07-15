@@ -415,18 +415,20 @@ class Contracts
      */
     public function getNeighbours($realNum = false)
     {
+        $result = $this->neighbours;
         if($realNum){
             return $this->neighbours;
         }
-        $neighbours = $this->neighbours;
-        //rename neighbours keys because form builder don't like '.' in name
-        $landNumbers = array_keys($neighbours);
-        $newNeighbours = [];
-        foreach ($landNumbers as $number) {
-            $newNumber = str_replace('.', '_', $number);
-            $newNeighbours[$newNumber] = $neighbours[$number];
+        if($result){
+            //rename neighbours keys because form builder don't like '.' in name
+            $landNumbers = array_keys($this->neighbours);
+            $result = [];
+            foreach ($landNumbers as $number) {
+                $newNumber = str_replace('.', '_', $number);
+                $result[$newNumber] = $this->neighbours[$number];
+            }
         }
-        return $newNeighbours;
+        return $result;
     }
 
     /**
