@@ -37,6 +37,8 @@ framework:
 
 # Twig Configuration
 twig:
+    globals:
+        version: '%app.version%'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     cache: false
