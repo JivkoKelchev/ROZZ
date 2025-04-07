@@ -493,9 +493,16 @@ class ContractsController extends Controller
         $timeForm = $this->createFormBuilder($timeArray)
             ->getForm()
             ->add('all', CheckboxType::class, ['label'=>'само активни договори', 'required'=>false])
-            ->add('start', DateType::class, ['label'=>'Oт : ', 'required'=>true, 'html5'=>false,
+            ->add('start', DateType::class, [
+                'data' => new \DateTime(),
+                'years' => range(date('Y') - 20, date('Y') + 10),
+                'label'=>'Oт : ',
+                'required'=>true,
+                'html5'=>false,
                 'format' => 'dd.MM.yyyy'])
             ->add('end', DateType::class, ['label'=>'До : ', 'required'=>true,
+                'data' => new \DateTime(),
+                'years' => range(date('Y') - 20, date('Y') + 10),
                 'format' => 'dd.MM.yyyy'])
             ->add('criteria', TextType::class,['label'=>'Критерии :','required'=>false]);
 

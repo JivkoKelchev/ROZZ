@@ -57,6 +57,7 @@
             <th>Местност</th>
             <th>Землище</th>
             <th>НТП</th>
+            <th>Категория</th>
             <th>Площ</th>
             <th>Цена за дка.</th>
             <th>Обща площ</th>
@@ -95,6 +96,11 @@
                     {% endfor %}
                 </td>
                 <td>
+                    {% for usedArea in contract.usedArea  %}
+                        {{ usedArea.land.kat.name }}<br>
+                    {% endfor %}
+                </td>
+                <td>
                     {% set totalArea = 0 %}
                     {% for usedArea in contract.usedArea  %}
                     {{ usedArea.area }}дка. <br>
@@ -107,11 +113,12 @@
                     {% endfor %}
                 </td>
                 <td>
-                    {{ totalArea }}
-                </td>
-                <td>
                     {{ contract.expire|date('Y-m-d') }}
                 </td>
+                <td>
+                    {{ totalArea }}
+                </td>
+
             </tr>
         {% endfor %}
         <tr>
