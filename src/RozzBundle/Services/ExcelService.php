@@ -60,8 +60,9 @@ class ExcelService
                         ->setCellValueByColumnAndRow(3, $currentRow, $land->getMest()->getName())
                         ->setCellValueByColumnAndRow(4, $currentRow, $land->getZem()->getName())
                         ->setCellValueByColumnAndRow(5, $currentRow, $land->getNtp()->getName())
-                        ->setCellValueByColumnAndRow(6, $currentRow, $usedLand->getArea())
-                        ->setCellValueByColumnAndRow(7, $currentRow, $usedLand->getPrice());
+						->setCellValueByColumnAndRow(6, $currentRow, $land->getKat()->getName())
+                        ->setCellValueByColumnAndRow(7, $currentRow, $usedLand->getArea())
+                        ->setCellValueByColumnAndRow(8, $currentRow, $usedLand->getPrice());
 
                     $currentRow++;
                     $totalArea += $usedLand->getArea();
@@ -70,14 +71,14 @@ class ExcelService
                 }
 
                 $phpExcelObject->setActiveSheetIndex(0)
-                    ->mergeCellsByColumnAndRow(8, $currentRow - count($usedLands), 8, $currentRow - 1)
                     ->mergeCellsByColumnAndRow(9, $currentRow - count($usedLands), 9, $currentRow - 1)
-                    ->mergeCellsByColumnAndRow(10, $currentRow - count($usedLands), 10, $currentRow - 1);
+                    ->mergeCellsByColumnAndRow(10, $currentRow - count($usedLands), 10, $currentRow - 1)
+                    ->mergeCellsByColumnAndRow(11, $currentRow - count($usedLands), 11, $currentRow - 1);
 
                 $phpExcelObject->setActiveSheetIndex(0)
-                    ->setCellValueByColumnAndRow(8, $currentRow - count($usedLands), $totalArea)
-                    ->setCellValueByColumnAndRow(9, $currentRow - count($usedLands), $totalPrice)
-                    ->setCellValueByColumnAndRow(10, $currentRow - count($usedLands), $contract->getExpire()->format('d/m/Y'));
+                    ->setCellValueByColumnAndRow(9, $currentRow - count($usedLands), $totalArea)
+                    ->setCellValueByColumnAndRow(10, $currentRow - count($usedLands), $totalPrice)
+                    ->setCellValueByColumnAndRow(11, $currentRow - count($usedLands), $contract->getExpire()->format('d/m/Y'));
 
                 $phpExcelObject->getActiveSheet()
                     ->getStyleByColumnAndRow(0, $currentRow - count($usedLands)/*, 10, $currentRow - 1*/)
