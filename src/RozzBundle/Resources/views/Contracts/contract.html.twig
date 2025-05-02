@@ -69,7 +69,7 @@
             {% for selectedland in lands %}
                 <li class="placeholder">
                     Имот с идентификатор {{ selectedland.land.num }}, м. {{ selectedland.land.mest.name }}, зем. {{ selectedland.land.zem.name }}, НТП - {{
-                    selectedland.land.ntp.name }}, с площ {{ selectedland.area }} дка. и цена за дка - {{ selectedland.price }}лв./дка;
+                    selectedland.land.ntp.name }}, категория на земята {{ selectedland.land.kat.name }}, с площ {{ selectedland.area }} дка. и цена за дка - {{ selectedland.price }}лв./дка;
                     <br>
                     {{ selectedland.neighbours }}
                     {% set totalArea = totalArea + selectedland.area %}
