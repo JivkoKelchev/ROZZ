@@ -58,6 +58,7 @@
             <th>Землище</th>
             <th>НТП</th>
             <th>Категория</th>
+            <th style="color: red">Забележка</th>
             <th>Площ</th>
             <th>Цена за дка.</th>
             <th>Обща площ</th>
@@ -74,30 +75,39 @@
                 <td>
                     {{ contract.holder.name }}
                 </td>
-
+                {% set usedAreas = contract.usedArea %}
                 <td>
-                    {% for usedArea in contract.usedArea  %}
+                    {% for usedArea in usedAreas  %}
                     {{ usedArea.land.num }}<br>
                     {% endfor %}
                 </td>
                 <td>
-                    {% for usedArea in contract.usedArea  %}
+                    {% for usedArea in usedAreas  %}
                     {{ usedArea.land.mest.name }}<br>
                     {% endfor %}
                 </td>
                 <td>
-                    {% for usedArea in contract.usedArea  %}
+                    {% for usedArea in usedAreas  %}
                     {{ usedArea.land.zem.name }}<br>
                     {% endfor %}
                 </td>
                 <td>
-                    {% for usedArea in contract.usedArea  %}
+                    {% for usedArea in usedAreas %}
                     {{ usedArea.land.ntp.name }}<br>
                     {% endfor %}
                 </td>
                 <td>
-                    {% for usedArea in contract.usedArea  %}
+                    {% for usedArea in usedAreas  %}
                         {{ usedArea.land.kat.name }}<br>
+                    {% endfor %}
+                </td>
+                <td style="color: red">
+                    {% for usedArea in usedAreas  %}
+                        {% if usedArea.land.comments != null %}
+                            {{ usedArea.land.comments.comment }}<br>
+                        {% else %}
+                            <br>
+                        {% endif %}
                     {% endfor %}
                 </td>
                 <td>
@@ -118,7 +128,6 @@
                 <td>
                     {{ totalArea }}
                 </td>
-
             </tr>
         {% endfor %}
         <tr>
