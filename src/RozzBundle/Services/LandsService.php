@@ -44,21 +44,50 @@ class LandsService
         return $land->getArea() - $activeUsedArea;
     }
 
-    public function setUsedAreaForActiveContracts( ObjectManager $em ,\DateTime $startOfAgroYear){
-        $allUsedArea = $em->getRepository(UsedArea::class)->findAll();
-        foreach ($allUsedArea as $usedArea){
-            $contract=$usedArea->getContract();
+    public function setUsedAreaForActiveContracts(ObjectManager $em, \DateTime $startOfAgroYear) {
+        // Clone instead of creating a new DateTime
+        $endOfAgroYear = clone $startOfAgroYear;
+        $endOfAgroYear->add(new \DateInterval('P1Y'))->sub(new \DateInterval('P1D'));
 
-            if ($this->contractService->isContractActive($em, $contract->getId())){
+        // Process in batches
+        $batchSize = 100;
+        $offset = 0;
 
-                $usedArea->setActive(1);
+        do {
+            // Get only a batch of entities at a time
+            $query = $em->createQuery('
+                SELECT ua, c 
+                FROM ' . UsedArea::class . ' ua
+                JOIN ua.contract c
+                WHERE ua.active = 1
+            ')
+            ->setMaxResults($batchSize)
+            ->setFirstResult($offset);
 
-            }else{
-                $usedArea->setActive(0);
+            $usedAreas = $query->getResult();
+            $count = count($usedAreas);
+
+            if ($count > 0) {
+                foreach ($usedAreas as $usedArea) {
+                    $contract = $usedArea->getContract();
+
+                    $shouldBeActive = $contract->getStart() <= $startOfAgroYear &&
+                                      $contract->getExpire() >= $endOfAgroYear &&
+                                      $contract->getStatus() != 2;
+
+                    if (!$shouldBeActive) {
+                        $usedArea->setActive(0);
+                    }
+                    // Only persist if it changed
+                }
+
+                $em->flush();
+                $em->clear(); // Clear memory after each batch
+
+                $offset += $count;
             }
-            $em->persist($usedArea);
-            $em->persist($contract);
-            $em->flush();
-        }
+        } while ($count > 0);
+
+        return $offset; // Return total processed
     }
 }
