@@ -44,50 +44,47 @@ class LandsService
         return $land->getArea() - $activeUsedArea;
     }
 
-    public function setUsedAreaForActiveContracts(ObjectManager $em, \DateTime $startOfAgroYear) {
-        // Clone instead of creating a new DateTime
-        $endOfAgroYear = clone $startOfAgroYear;
-        $endOfAgroYear->add(new \DateInterval('P1Y'))->sub(new \DateInterval('P1D'));
+   public function setUsedAreaForActiveContracts(ObjectManager $em, \DateTime $startOfAgroYear) {
+       // Clone instead of creating a new DateTime
+       $endOfAgroYear = clone $startOfAgroYear;
+       $endOfAgroYear->add(new \DateInterval('P1Y'))->sub(new \DateInterval('P1D'));
 
-        // Process in batches
-        $batchSize = 100;
-        $offset = 0;
+       // Process in batches
+       $batchSize = 100;
+       $offset = 0;
 
-        do {
-            // Get only a batch of entities at a time
-            $query = $em->createQuery('
-                SELECT ua, c 
-                FROM ' . UsedArea::class . ' ua
-                JOIN ua.contract c
-                WHERE ua.active = 1
-            ')
-            ->setMaxResults($batchSize)
-            ->setFirstResult($offset);
+       do {
+           // Get a batch of ALL entities, not just active ones
+           $query = $em->createQuery('
+               SELECT ua, c
+               FROM ' . UsedArea::class . ' ua
+               JOIN ua.contract c
+           ')
+           ->setMaxResults($batchSize)
+           ->setFirstResult($offset);
 
-            $usedAreas = $query->getResult();
-            $count = count($usedAreas);
+           $usedAreas = $query->getResult();
+           $count = count($usedAreas);
 
-            if ($count > 0) {
-                foreach ($usedAreas as $usedArea) {
-                    $contract = $usedArea->getContract();
+           if ($count > 0) {
+               foreach ($usedAreas as $usedArea) {
+                   $contract = $usedArea->getContract();
 
-                    $shouldBeActive = $contract->getStart() <= $startOfAgroYear &&
-                                      $contract->getExpire() >= $endOfAgroYear &&
-                                      $contract->getStatus() != 2;
+                   $shouldBeActive = $contract->getStart() <= $startOfAgroYear &&
+                                    $contract->getExpire() >= $endOfAgroYear &&
+                                    $contract->getStatus() != 2;
 
-                    if (!$shouldBeActive) {
-                        $usedArea->setActive(0);
-                    }
-                    // Only persist if it changed
-                }
+                   // Set active state based on conditions
+                   $usedArea->setActive($shouldBeActive ? 1 : 0);
+               }
 
-                $em->flush();
-                $em->clear(); // Clear memory after each batch
+               $em->flush();
+               $em->clear(); // Clear memory after each batch
 
-                $offset += $count;
-            }
-        } while ($count > 0);
+               $offset += $count;
+           }
+       } while ($count > 0);
 
-        return $offset; // Return total processed
-    }
+       return $offset; // Return total processed
+   }
 }
