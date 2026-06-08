@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% for label, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label == 'error' ? 'danger' : label }}">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        <h2>Стандартни цени по НТП и землище</h2>
+        <p>
+            <a class="btn btn-default btn-sm" href="{{ path('rozz_settings_settingsindex') }}">&larr; Назад към настройките</a>
+        </p>
+
+        <form method="get" action="{{ path('default_prices_index') }}" class="form-inline" style="margin-bottom:20px;">
+            <label for="zem">Землище:&nbsp;</label>
+            <select id="zem" name="zem" class="form-control" onchange="this.form.submit()">
+                <option value="">— изберете землище —</option>
+                {% for zem in zems %}
+                    <option value="{{ zem.id }}" {{ selectedZem and selectedZem.id == zem.id ? 'selected' : '' }}>{{ zem.name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if selectedZem %}
+            <form method="post" action="{{ path('default_prices_save', {'zemId': selectedZem.id}) }}">
+                <p>Оставете полето празно, за да няма стандартна цена за съответния НТП (тогава цената се въвежда ръчно при създаване на договор).</p>
+                <table class="table table-striped table-bordered" style="max-width:600px;">
+                    <thead>
+                    <tr>
+                        <th>НТП</th>
+                        <th>Цена за дка</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ntp in ntps %}
+                        <tr>
+                            <td>{{ ntp.name }}</td>
+                            <td>
+                                <input type="text" class="form-control input-sm"
+                                       name="price[{{ ntp.id }}]"
+                                       value="{{ prices[ntp.id] is defined ? prices[ntp.id] : '' }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Запази
+                </button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

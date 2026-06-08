@@ -24,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
@@ -121,6 +122,36 @@ class ContractsController extends Controller
         }
         return $this->render('@Rozz/Contracts/manage_selected_lands.html.twig',['form'=>$selectedLandsForm->createView(),
                                                                                             'lands' => $selectedLands]);
+    }
+
+    /**
+     * Поставя стандартните цени (по НТП и землище) върху избраните имоти, където
+     * има зададена стандартна цена. Удобно при договор от съществуващ, за да се
+     * заменят старите цени с текущите стандартни.
+     *
+     * @Route("/selected/apply-default-prices", name="apply_default_prices")
+     */
+    public function applyDefaultPricesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $selectedLands = $em->getRepository(SelectedLand::class)->findBy(['user' => $user]);
+        $priceService = $this->get('default_price_service');
+
+        $applied = 0;
+        foreach ($selectedLands as $land) {
+            $default = $priceService->getPriceFor($land->getLand()->getNtp(), $land->getLand()->getZem());
+            if ($default !== null) {
+                $land->setPrice($default);
+                $em->persist($land);
+                $applied++;
+            }
+        }
+        $em->flush();
+
+        $this->addFlash('success', 'Поставени са стандартни цени за ' . $applied . ' имот(а).');
+
+        return $this->redirectToRoute('selected_lands');
     }
 
     /**
@@ -312,6 +343,12 @@ class ContractsController extends Controller
 
         $selectedLands = $em->getRepository(SelectedLand::class)->findBy(['user'=>$user]);
 
+        if (!$newContract) {
+            $this->addFlash('error', 'Няма започнат договор за преглед.');
+
+            return $this->redirectToRoute('contracts_list');
+        }
+
         $newContract->setMayor($em->getRepository(Mayors::class)->findOneBy(['status'=>1]));
 
         $differenceHtml = '';
@@ -328,9 +365,34 @@ class ContractsController extends Controller
         }
 
         if ($this->get('contract_service')->checkDataForContract($user,$em)){
+            $templateService = $this->get('contract_template_service');
+            //Избран шаблон от падащото меню (ако има)
+            $templateId = $request->query->get('template');
+            $template = null;
+            if ($templateId) {
+                $template = $em->getRepository(\RozzBundle\Entity\ContractTemplate::class)->find($templateId);
+            }
+            if (!$template) {
+                //По подразбиране: при редакция -> текущият шаблон на договора,
+                //иначе активният шаблон (за нов договор).
+                if ($newContract->getEditContractId()) {
+                    $editing = $em->getRepository(Contracts::class)->find($newContract->getEditContractId());
+                    if ($editing) {
+                        $template = $templateService->getTemplateForContract($editing);
+                    }
+                }
+                if (!$template) {
+                    $template = $templateService->getActiveTemplate();
+                }
+            }
+            $renderedContract = $this->get('contract_template_renderer')->render($template, $newContract, $selectedLands);
+
             return $this->render('@Rozz/Contracts/contracts_preview.html.twig',
                 ['data'=>$newContract,
                 'lands'=>$selectedLands,
+                'renderedContract' => $renderedContract,
+                'templates' => $templateService->listAll(),
+                'selectedTemplateId' => $template->getId(),
                 'difference' => $differenceHtml]);
         }else{
             //ToDo: Error flashbag
@@ -363,25 +425,34 @@ class ContractsController extends Controller
                 $area->setNeighbours($neighbours[$area->getLand()->getNum()]);
             }
         }
+        $template = $this->get('contract_template_service')->getTemplateForContract($contract);
+        $renderedContract = $this->get('contract_template_renderer')->render($template, $contract, $contract->getUsedArea());
+
         return $this->render('@Rozz/Contracts/contract_view.html.twig',
             ['data'=>$contract,
             'lands'=>$contract->getUsedArea(),
+            'renderedContract' => $renderedContract,
             'difference' => $differenceHtml]);
     }
 
     /**
      * @Route("contract/create",name="contract_create")
      */
-    public function createContractAction()
+    public function createContractAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        //RTF Template
-        $templateDir = $this->get('kernel')->getRootDir()."/../web/files/rtf.rtf";
+        //Шаблон, избран от падащото меню в превюто (ако има)
+        $template = null;
+        $templateId = $request->query->get('template');
+        if ($templateId) {
+            $template = $em->getRepository(\RozzBundle\Entity\ContractTemplate::class)->find($templateId);
+        }
+
         if ($this->get('contract_service')->checkDataForContract($user,$em)){
 
-            $contractId = $this->get('contract_service')->persistContract($user,$em, $templateDir);
+            $contractId = $this->get('contract_service')->persistContract($user,$em,$template);
             return $this->redirectToRoute('contract_view',['id'=>$contractId]);
         }else{
             //TODO : Error flashbag
@@ -390,17 +461,45 @@ class ContractsController extends Controller
     }
 
     /**
-     * @param $id
-     * @Route("/contract/rtf/{id}",name="contract_rtf")
+     * Изтегля договора като .docx файл, генериран от шаблона —
+     * така изтегленият документ съвпада с изгледа на екрана.
+     *
+     * @Route("/contract/download/{id}", name="contract_download")
      */
-    public function makeRtfAction($id){
+    public function downloadContractAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $contract = $em->getRepository(Contracts::class)->find($id);
+        if (!$contract) {
+            throw $this->createNotFoundException('Договорът не е намерен.');
+        }
+        if ($contract->getStart() == null) {
+            $start = clone $contract->getExpire();
+            $start->modify('-1 year')->modify('+1 day');
+            $contract->setStart($start);
+        }
+        //съседите се поставят към имотите, както при изгледа
+        $neighbours = $contract->getNeighbours(true);
+        foreach ($contract->getUsedArea() as $area) {
+            if (is_array($neighbours) && isset($neighbours[$area->getLand()->getNum()])) {
+                $area->setNeighbours($neighbours[$area->getLand()->getNum()]);
+            }
+        }
 
-        $dir = $this->get('kernel')->getRootDir()."/../web/files/";
+        $template = $this->get('contract_template_service')->getTemplateForContract($contract);
+        $renderedContract = $this->get('contract_template_renderer')
+            ->render($template, $contract, $contract->getUsedArea());
 
-        $filePath = $this->get("contract_service")->createRtf($contract,$dir);
-        return $this->file($filePath);
+        $docx = $this->get('docx_generator')->generate($renderedContract);
+
+        $name = $contract->getNum() ? $contract->getNum() : $contract->getId();
+        $name = preg_replace('/[^\p{L}\p{N}_-]+/u', '-', $name);
+
+        $response = new Response($docx);
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        $response->headers->set('Content-Disposition', 'attachment; filename="dogovor_' . $name . '.docx"');
+
+        return $response;
     }
 
 
@@ -432,9 +531,14 @@ class ContractsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $searchArray = [];
         $searchArray['search']=null;
-        $searchForm = $this->createFormBuilder($searchArray)
-            ->getForm()
-            ->add('search', TextType::class,['label'=>'Търси договор','required'=>false]);
+        //GET форма, за да остане търсенето в URL-а и да се запазва при странициране
+        $searchForm = $this->createFormBuilder($searchArray, [
+                'method' => 'GET',
+                'csrf_protection' => false,
+                'allow_extra_fields' => true,
+            ])
+            ->add('search', TextType::class,['label'=>'Търси договор','required'=>false])
+            ->getForm();
         $searchForm->handleRequest($request);
         if ($searchForm->isSubmitted() && $searchForm->isValid())
         {

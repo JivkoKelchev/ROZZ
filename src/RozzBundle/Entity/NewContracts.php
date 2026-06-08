@@ -122,6 +122,15 @@ class NewContracts
     private $editContractId;
 
     /**
+     * @var string
+     * Валута на договора: 'BGN' (лева) или 'EUR' (евро).
+     * Празно/null се третира като EUR (виж getCurrency).
+     *
+     * @ORM\Column(name="currency", type="string", length=3, nullable=true)
+     */
+    private $currency;
+
+    /**
      * @var Mayors
      * Не се ползва в базата,
      * използва се за съвместимост на contract_preview и contract_view
@@ -417,6 +426,25 @@ class NewContracts
     public function setExaminers($examiners)
     {
         $this->examiners = $examiners;
+    }
+
+    /**
+     * Връща валутата на чернова на договора. Празно/null се третира като EUR
+     * (евро), за да са по подразбиране нови договори в евро.
+     *
+     * @return string 'BGN' или 'EUR'
+     */
+    public function getCurrency()
+    {
+        return $this->currency ?: 'EUR';
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
     }
 
 

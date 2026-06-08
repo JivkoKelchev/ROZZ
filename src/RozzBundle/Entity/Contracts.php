@@ -14,6 +14,7 @@ const STATUS_CONTRACT = 1;
 const STATUS_HAS_ANNEX = 2;
 const STATUS_EXPIRED = 3;
 const STATUS_TERMINATED = 4;
+
 /**
  * contracts
  *
@@ -22,6 +23,9 @@ const STATUS_TERMINATED = 4;
  */
 class Contracts
 {
+    const CURRENCY_BGN = 'BGN';
+    const CURRENCY_EUR = 'EUR';
+
     /**
      * @var int
      *
@@ -160,6 +164,24 @@ class Contracts
      * @ORM\Column(name="annex_contract_id", type="integer", nullable=true)
      */
     private $annexContractId;
+
+    /**
+     * @var string
+     * Валута на договора: 'BGN' (лева) или 'EUR' (евро).
+     * Празно/null се третира като EUR (виж getCurrency).
+     *
+     * @ORM\Column(name="currency", type="string", length=3, nullable=true)
+     */
+    private $currency;
+
+    /**
+     * @var ContractTemplate
+     * Шаблонът, с който е създаден договорът. NULL => наследен (legacy) шаблон.
+     *
+     * @ORM\ManyToOne(targetEntity="RozzBundle\Entity\ContractTemplate")
+     * @ORM\JoinColumn(name="template_id", referencedColumnName="id", nullable=true)
+     */
+    private $template;
 
 
 
@@ -460,6 +482,41 @@ class Contracts
     public function setAnnexContractId(int $annexContractId)
     {
         $this->annexContractId = $annexContractId;
+    }
+
+    /**
+     * Връща валутата на договора. Празно/null се третира като EUR (евро),
+     * за да са в евро всички нови договори по подразбиране.
+     *
+     * @return string 'BGN' или 'EUR'
+     */
+    public function getCurrency()
+    {
+        return $this->currency ?: self::CURRENCY_EUR;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * @return ContractTemplate
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param ContractTemplate $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
     }
 
     /**

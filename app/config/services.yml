@@ -33,3 +33,21 @@ services:
     cad_service:
         class: RozzBundle\Services\CadService
         arguments: ["@doctrine.orm.default_entity_manager"]
+    price_to_words_service:
+        class: RozzBundle\Services\PriceToWordsService
+    contract_template_renderer:
+        class: RozzBundle\Services\ContractTemplateRenderer
+        arguments: ["@price_to_words_service"]
+    contract_template_service:
+        class: RozzBundle\Services\ContractTemplateService
+        arguments: ["@doctrine.orm.default_entity_manager"]
+    docx_generator:
+        class: RozzBundle\Services\DocxGenerator
+    default_price_service:
+        class: RozzBundle\Services\DefaultPriceService
+        arguments: ["@doctrine.orm.default_entity_manager"]
+    rozz.twig.price_extension:
+        class: RozzBundle\Twig\PriceExtension
+        arguments: ["@price_to_words_service"]
+        tags:
+            - { name: twig.extension }

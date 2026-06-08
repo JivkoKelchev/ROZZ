@@ -41,6 +41,18 @@
 {% endblock %}
 
 {% block body %}
+    {#Избор на шаблон за договора#}
+    <div class="container" style="margin-bottom:15px;">
+        <form method="get" action="{{ path('contract_preview') }}" class="form-inline">
+            <label for="template">Шаблон за договора:&nbsp;</label>
+            <select id="template" name="template" class="form-control" onchange="this.form.submit()">
+                {% for tpl in templates %}
+                    <option value="{{ tpl.id }}" {{ tpl.id == selectedTemplateId ? 'selected' : '' }}>{{ tpl.name }}{{ tpl.isActive ? ' (активен)' : '' }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
     {#Ако договора е анекс#}
     {% if data.type == 3 %}
         {#Ако няма промяна, юзъра няма право да записва анекс#}
@@ -54,19 +66,19 @@
             {{ difference|raw }}
             <br>
             <div id="contract-tools" class="jumbotron" style="padding: 10px;position: relative;">
-                <a class="btn btn-success" href="{{ path('contract_create') }}">Запази</a>
+                <a class="btn btn-success" href="{{ path('contract_create', {'template': selectedTemplateId}) }}">Запази</a>
             </div>
         {% endif %}
     {#Ако не е анекс    #}
     {% else %}
         <div id="contract-tools" class="jumbotron" style="padding: 10px;position: relative;">
-            <a class="btn btn-success" href="{{ path('contract_create') }}">Запази</a>
+            <a class="btn btn-success" href="{{ path('contract_create', {'template': selectedTemplateId}) }}">Запази</a>
         </div>
     {% endif %}
 
     {#Изглед на договора#}
 
-    {% include 'RozzBundle:Contracts:contract.html.twig' %}
+    {{ renderedContract|raw }}
 
 
 {% endblock %}

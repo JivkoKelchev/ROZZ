@@ -46,6 +46,9 @@ class ExcelService
 
                 $usedLands = $contract->getUsedArea();
 
+                //Валута на договора за изписване до цените (лв за стари, евро за нови)
+                $currency = $contract->getCurrency() == 'BGN' ? 'лв' : 'евро';
+
                 $phpExcelObject->setActiveSheetIndex(0)
                     ->mergeCellsByColumnAndRow(0, $currentRow, 0, $currentRow+ count($usedLands) - 1)
                     ->mergeCellsByColumnAndRow(1, $currentRow, 1, $currentRow+ count($usedLands) - 1);
@@ -63,7 +66,7 @@ class ExcelService
 						->setCellValueByColumnAndRow(6, $currentRow, $land->getKat()->getName())
                         ->setCellValueByColumnAndRow(7, $currentRow, empty($land->getComments()) ? "" : $land->getComments()->getComment())
                         ->setCellValueByColumnAndRow(8, $currentRow, $land->getArea())
-                        ->setCellValueByColumnAndRow(9, $currentRow, $usedLand->getPrice());
+                        ->setCellValueByColumnAndRow(9, $currentRow, $usedLand->getPrice() . ' ' . $currency);
 
                     $currentRow++;
                     $totalArea += $usedLand->getArea();
@@ -78,7 +81,7 @@ class ExcelService
 
                 $phpExcelObject->setActiveSheetIndex(0)
                     ->setCellValueByColumnAndRow(10, $currentRow - count($usedLands), $totalArea)
-                    ->setCellValueByColumnAndRow(11, $currentRow - count($usedLands), $totalPrice)
+                    ->setCellValueByColumnAndRow(11, $currentRow - count($usedLands), $totalPrice . ' ' . $currency)
                     ->setCellValueByColumnAndRow(12, $currentRow - count($usedLands), $contract->getExpire()->format('d/m/Y'));
 
                 $phpExcelObject->getActiveSheet()

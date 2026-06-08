@@ -8,6 +8,7 @@ use RozzBundle\Entity\Examiners;
 use RozzBundle\Entity\NewContracts;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -24,6 +25,10 @@ class NewContractType extends AbstractType
             ->add('reason', TextType::class, ['label'=>'Основание'])
             ->add('application',TextType::class,['label'=>'Заявление'])
             ->add('years', NumberType::class,['label'=>'За срок от [години]'])
+            ->add('currency', ChoiceType::class, [
+                'label' => 'Валута',
+                'choices' => ['Евро (EUR)' => 'EUR', 'Лев (BGN)' => 'BGN'],
+            ])
             ->add('neighbours', CollectionType::class,
                 ['entry_type' => TextareaType::class,
                 'label' => 'Описание на съседни имоти',

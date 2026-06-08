@@ -3,7 +3,7 @@
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
     # version
-    app.version: 0.1.0
+    app.version: 0.2.0
     # database params - for docker host use "rozz_db"
     database_host: 127.0.0.1
     database_port: ~

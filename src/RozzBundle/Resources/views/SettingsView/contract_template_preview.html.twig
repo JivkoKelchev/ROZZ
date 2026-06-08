@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        #contract{
+            width : 90%;
+            border: solid 1px;
+            border-color: black ;
+            margin : 10px;
+            padding-top: 30px;
+            padding-left : 10px;
+            padding-right : 80px;
+        }
+        .placeholder{
+            color: blue;
+            font-size: 14pt;
+            font-family: 'Times New Roman', serif;
+            white-space: normal;
+        }
+        p   {margin: 0 -27pt 0.0001pt 0;
+            font-size: 14pt;
+            font-family: 'Times New Roman', serif;
+            color: #000000;
+            font-weight: 400;
+            text-align: justify;
+            white-space: normal;
+            word-break:break-all;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="alert alert-warning">
+            Преглед на шаблон „{{ template.name }}“ с данни от последния създаден договор.
+            Това е примерен изглед — нищо не се записва.
+            <a href="{{ path('contract_templates_list') }}">Назад</a>
+        </div>
+        {{ renderedContract|raw }}
+    </div>
+{% endblock %}

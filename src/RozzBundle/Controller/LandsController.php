@@ -168,9 +168,9 @@ class LandsController extends Controller
             $usedArea = 0;
             $usedAreaArray = $em->getRepository('RozzBundle:UsedArea')->findBy(['land'=>$land]);
             foreach ($usedAreaArray as $area){
-                $expire = $area->getContract()->getExpire();
-                $now = new \DateTime('now');
-                if($now<$expire){
+                //Броим само активно заетите площи (както свободната площ навсякъде
+                //другаде). Неактивните договори не заемат площ от имота.
+                if($area->getActive() == 1){
                     $usedArea = $usedArea + $area->getArea();
                 }
             }
@@ -178,6 +178,12 @@ class LandsController extends Controller
             $selected->setArea($maxArea);
             $selected->setLand($land);
             $selected->setUser($user);
+            //Автоматично попълване на цената по стандартна цена за (НТП, землище),
+            //ако има зададена. Клеркът може да я промени по-късно.
+            $defaultPrice = $this->get('default_price_service')->getPriceFor($land->getNtp(), $land->getZem());
+            if ($defaultPrice !== null) {
+                $selected->setPrice($defaultPrice);
+            }
             $em->persist($selected);
             $em->flush();
             $newContract = $em->getRepository(NewContracts::class)->findOneBy(['user'=>$this->getUser()]);

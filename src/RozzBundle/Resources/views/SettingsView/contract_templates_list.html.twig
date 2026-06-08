@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% for label, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label == 'error' ? 'danger' : label }}">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        <h2>Шаблони за договори</h2>
+        <p>
+            <a class="btn btn-success" href="{{ path('contract_templates_new') }}">
+                <span class="glyphicon glyphicon-plus"></span> Нов шаблон
+            </a>
+            <a class="btn btn-default" href="{{ path('rozz_settings_settingsindex') }}">Назад към настройките</a>
+        </p>
+
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Име</th>
+                <th>Статус</th>
+                <th>Създаден</th>
+                <th>Използва се от</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for template in templates %}
+                <tr>
+                    <td>
+                        {{ template.name }}
+                        {% if template.id == legacyId %}
+                            <span class="label label-default">наследен</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if template.isActive %}
+                            <span class="label label-success">активен</span>
+                        {% else %}
+                            <span class="label label-default">неактивен</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ template.createdAt|date('d.m.Y H:i') }}</td>
+                    <td>{{ usage[template.id] }} договора</td>
+                    <td>
+                        <a class="btn btn-xs btn-primary" href="{{ path('contract_templates_edit', {'id': template.id}) }}">
+                            <span class="glyphicon glyphicon-edit"></span> Редакция
+                        </a>
+                        <a class="btn btn-xs btn-info" target="_blank" href="{{ path('contract_templates_preview', {'id': template.id}) }}">
+                            <span class="glyphicon glyphicon-eye-open"></span> Преглед
+                        </a>
+                        {% if not template.isActive %}
+                            <a class="btn btn-xs btn-success" href="{{ path('contract_templates_activate', {'id': template.id}) }}">
+                                <span class="glyphicon glyphicon-ok"></span> Активирай
+                            </a>
+                        {% endif %}
+                        {% if template.id != legacyId and usage[template.id] == 0 %}
+                            <a class="btn btn-xs btn-danger" href="{{ path('contract_templates_delete', {'id': template.id}) }}"
+                               onclick="return confirm('Да изтрия ли този шаблон?');">
+                                <span class="glyphicon glyphicon-trash"></span> Изтрий
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

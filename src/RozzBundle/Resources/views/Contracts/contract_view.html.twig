@@ -56,7 +56,7 @@
             </a>
         {% endif %}
 
-        <a class="btn btn-default btn-sm" href="{{ path('contract_rtf', {'id':data.id}) }}">
+        <a class="btn btn-default btn-sm" href="{{ path('contract_download', {'id':data.id}) }}">
             <span class="glyphicon glyphicon-save-file">
                 Изтегли файл
             </span>
@@ -87,7 +87,7 @@
     </div>
 
 
-     {% include 'RozzBundle:Contracts:contract.html.twig' %}
+     {{ renderedContract|raw }}
 
 </div>
 

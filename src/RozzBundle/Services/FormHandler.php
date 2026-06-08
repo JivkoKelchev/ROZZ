@@ -152,14 +152,17 @@ class FormHandler
         $contractsRepo = $em->getRepository('RozzBundle:Contracts');
         if ($formData['search']==null){
             $query = $contractsRepo->createQueryBuilder('c')
-                ->select()->getQuery();
+                ->select()
+                ->orderBy('c.id', 'DESC')
+                ->getQuery();
             $result = $query->getResult();
             $array['query']  = $query;
             $array['result'] = $result;
             return $array;
         }
         $query = $contractsRepo->createQueryBuilder('c')
-            ->select()
+            ->select('c')
+            ->distinct()
             ->leftJoin('c.holder','h')
             ->leftJoin('c.usedArea','a')
             ->leftJoin('a.land','l')
@@ -172,6 +175,7 @@ class FormHandler
             ->orWhere('z.name LIKE :search')
             //po mestnost, nomer imot, zemlishte
             ->setParameter('search','%'.$formData['search'].'%')
+            ->orderBy('c.id', 'DESC')
             ->getQuery();
         $result = $query->getResult();
         $array['query']  = $query;

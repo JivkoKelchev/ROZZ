@@ -7,7 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    app.version: 0.1.3
+    app.version: 0.2.0
 
 framework:
     #esi: ~
@@ -88,6 +88,6 @@ knp_paginator:
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
-        pagination: 'KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig'     # sliding pagination controls template
+        pagination: 'RozzBundle:Pagination:pagination.html.twig'     # sliding pagination controls template (BG labels)
         sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig' # sort link templatestash:
 

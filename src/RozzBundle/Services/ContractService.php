@@ -112,6 +112,7 @@ class ContractService
         $newContract->setExaminer($contract->getExaminer());
         $newContract->setExaminers($contract->getExaminers());
         $newContract->setReason($contract->getReason());
+        $newContract->setCurrency($contract->getCurrency());
         if ($contract->getNeighbours() != null) {
             $newContract->setNeighbours($contract->getNeighbours());
         }
@@ -261,7 +262,7 @@ class ContractService
         }
     }
 
-    public function persistContract(User $user, \Doctrine\Common\Persistence\ObjectManager $em, String $templateDir)
+    public function persistContract(User $user, \Doctrine\Common\Persistence\ObjectManager $em, $template = null)
     {
         //Данни за създаването на договор
         $selectedLands = $em->getRepository('RozzBundle:SelectedLand')->findBy(['user'=>$user]);
@@ -277,12 +278,24 @@ class ContractService
 
             if ($newContract->getEditContractId()){
                 $contract = $em->getRepository('RozzBundle:Contracts')->find($newContract->getEditContractId());
+                //При редакция сменяме шаблона само ако е избран нов от менюто;
+                //иначе договорът запазва текущия си шаблон.
+                if ($template !== null) {
+                    $contract->setTemplate($template);
+                }
             }else{
                 $contract = new Contracts();
+                //Нов договор: запомняме избрания шаблон (или активния), за да
+                //запази изгледа си дори след като админ въведе нова версия.
+                if ($template === null) {
+                    $template = $this->container->get('contract_template_service')->getActiveTemplate();
+                }
+                $contract->setTemplate($template);
             }
 
             $contract->setApplication($newContract->getApplication());
             $contract->setResheniq($newContract->getResheniq());
+            $contract->setCurrency($newContract->getCurrency());
 
             $today = new \DateTime();
 
@@ -363,107 +376,6 @@ class ContractService
             return $id;
         }
 
-    }
-
-    private function populateRtf($vars, $doc_file)
-    {
-
-        $replacements = array ('\\' => "\\\\",
-            '{'  => "\{",
-            '}'  => "\}");
-
-        $document = file_get_contents($doc_file);
-        if(!$document) {
-            return false;
-        }
-
-        foreach($vars as $key=>$value) {
-            $search = "%".$key."%";
-            $document = str_replace($search, iconv("UTF-8","Windows-1251//IGNORE",$value), $document);
-        }
-
-        return $document;
-    }
-
-    public function createRtf(Contracts $contractEntity, $templateDir)
-    {
-        //variables for populating RTF
-        $reason = $contractEntity->getReason();
-        $reshenie = $contractEntity->getResheniq();
-        $application = $contractEntity->getApplication();
-        $mayor = $contractEntity->getMayor()->getName();
-        $holder =$contractEntity->getHolder()->getName();
-
-        $landString = '';
-        $usedArea = $contractEntity->getUsedArea();
-
-        $i=1;
-        $iForAreas = 0;
-        $price = 0;
-
-        $totalArea = 0;
-        foreach ($usedArea as $area){
-            $landString.=
-                $i.". Поземлен имот № ".$area->getLand()->getNum().", м.”".$area->getLand()->getMest()->getName()."”, землище ".$area->getLand()->getZem()->getName().", общ. Велинград, с НТП ".$area->getLand()->getNtp()->getName()." и площ ".$area->getArea()." дка. }{\pard\par}{\\rtlch\\fcs1 \\af0\\afs28 \\ltrch\\fcs0 \\fs28\\insrsid4392819 ";
-            $price = $area->getArea()*$area->getPrice();
-
-            $totalArea = $totalArea + $area->getArea();
-            $i++;
-            $iForAreas++;
-
-        }
-        $landString .= 'С обща площ '.$totalArea.' дка.';
-
-        $start = $contractEntity->getStart();
-        if ($start == null){
-            /**
-             * @var \DateTime $endDate
-             */
-            $endDate = $contractEntity->getExpire();
-            $start = clone $endDate;
-            $start->modify('-1 year')->modify('+1 day');
-            $contractEntity->setStart($start);
-        }
-
-        $term = $contractEntity->getExpire()->diff($start);
-        $start = $start->format('d-m-Y');
-        $end = $contractEntity->getExpire()->format('d-m-Y');
-
-        $term = $term->y;
-        if ($term <= 1 ){
-            $term = $term.' стопанска година';
-        }elseif ($term > 1){
-            $term = $term.' стопански години';
-        }
-
-        $creator = $contractEntity->getUser()->getName();
-
-        //Todo make to work with examiners array collection!!
-//        $examiner = $contractEntity->getExaminer()->getName();
-        $examiner = 'test';
-
-        $vars = ['reshenie'=>$reshenie,
-            'application'=>$application, 'mayor'=>$mayor,
-            'holder'=>$holder, 'lands'=>$landString,
-            'start'=>$start, 'end'=>$end, 'term' => $term,
-            'creator'=>$creator,
-            'examiner' =>$examiner,
-            'price' => $price];
-
-        $newString=$this->populateRtf($vars,$templateDir.'rtf.rtf');;
-        $uniqueDateTime = new \DateTime('now');
-        $fileName = $uniqueDateTime->format('YmdHis').'.rtf';
-
-        $file = fopen($templateDir.'/rtf_files/'.$fileName, "w");
-
-//////////// Open the file to get existing content
-        $current = file_get_contents($templateDir.'/rtf_files/'.$fileName);
-////////////// Append a new person to the file
-        $current .= $newString;
-////// Write the contents back to the file
-        file_put_contents($templateDir.'/rtf_files/'.$fileName, $current);
-
-        return $templateDir.'/rtf_files/'.$fileName;
     }
 
     public function calculateLandFreeAreaForSelectedLands(Lands $land, NewContracts $newContract)

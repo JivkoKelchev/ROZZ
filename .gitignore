@@ -15,3 +15,8 @@
 /vendor/
 /web/bundles/
 /.idea/*
+
+# OS / generated artifacts (not source)
+.DS_Store
+/web/files/exl_files/*.xls
+/web/files/rtf_files/*.rtf

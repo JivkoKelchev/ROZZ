@@ -119,7 +119,7 @@
                 </td>
                 <td>
                     {% for usedArea in contract.usedArea  %}
-                    {{ usedArea.price }} лв<br>
+                    {{ usedArea.price }} {{ contract.currency == 'BGN' ? 'лв' : 'евро' }}<br>
                     {% endfor %}
                 </td>
                 <td>

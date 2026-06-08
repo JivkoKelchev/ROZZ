@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/templateEditor.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>{{ heading }}</h2>
+        <p>
+            <a class="btn btn-default btn-sm" href="{{ path('contract_templates_list') }}">&larr; Назад към шаблоните</a>
+        </p>
+
+        <div class="alert alert-info">
+            Текстът се редактира свободно. Където трябва да се появят данни от договора,
+            вмъкнете <strong>плейсхолдър</strong> (напр. <code>%holder%</code>) от палитрата под полето
+            или с бутона „Вмъкни плейсхолдър“. Плейсхолдърите се заменят автоматично при печат.
+        </div>
+
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.body) }}
+        {{ form_row(form.rowTemplate) }}
+        {{ form_row(form.isActive) }}
+        <button type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Запази
+        </button>
+        {{ form_end(form) }}
+    </div>
+
+    <script>window.ROZZ_TOKENS = {{ tokens|json_encode(constant('JSON_UNESCAPED_UNICODE'))|raw }};</script>
+    <script src="{{ asset('js/templateEditor.js') }}"></script>
+{% endblock %}

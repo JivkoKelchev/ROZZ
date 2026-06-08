@@ -13,6 +13,10 @@
             Определи площа на избраните имоти за новия договор
         </legend>
         {% if lands %}
+            <a href="{{ path('apply_default_prices') }}" class="btn btn-sm btn-info" style="margin-bottom:15px;"
+               onclick="return confirm('Да заменя ли цените със стандартните за имотите, за които има зададени? Незаписаните промени ще се загубят.');">
+                <span class="glyphicon glyphicon-usd"></span> Постави стандартни цени
+            </a>
             {{ form_start(form) }}
             {% for index,land in lands %}
                 {{ form_row(form.children[index]) }}
