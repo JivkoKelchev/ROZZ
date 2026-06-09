@@ -2,7 +2,10 @@
 
 {% block stylesheets %}
     <style>
-        #contract{
+        /* Рамката на „листа" е тук, върху обвиващия елемент, а НЕ върху
+           съдържанието на шаблона — така редакции в текста (преместване на
+           блокове) не могат да разцепят/удвоят рамката. */
+        .contract-sheet{
             width : 90%;
             border: solid 1px;
             border-color: black ;
@@ -78,7 +81,9 @@
 
     {#Изглед на договора#}
 
-    {{ renderedContract|raw }}
+    <div class="contract-sheet">
+        {{ renderedContract|raw }}
+    </div>
 
 
 {% endblock %}

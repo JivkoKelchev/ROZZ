@@ -92,6 +92,7 @@ class ContractTemplateRenderer
             'наемател'          => $this->e($data->getHolder()->getName()),
             'егн'               => $this->e($data->getHolder()->getEGN()),
             'адрес'             => $this->e($data->getHolder()->getAddres()),
+            'животновъден_обект' => $this->e($data->getAnimalFacility()),
             'списък_имоти'      => $landsList,
             'обща_площ'         => $this->e($this->num($totalArea)),
             'обща_цена'         => $this->e(number_format($totalPrice, 2, '.', ',')),

@@ -198,9 +198,13 @@ class ContractsController extends Controller
         if ($newContract->getHolder()){
             $holderData['names'] = $newContract->getHolder()->getName();
         }
+        $holderData['animalFacility'] = $newContract->getAnimalFacility();
+        //Списък с имена за datalist-а (търсене с изписване вместо тежко падащо меню)
+        $holderNamesList = array_keys($holdersNames);
         $holderForm = $this->createFormBuilder($holderData)
             ->add('egn',TextType::class,['label'=>'Въведи ЕГН','required'=>false])
-            ->add('names',ChoiceType::class,['label'=>'Избери име', 'choices'=>$holdersNames, 'required'=>false])
+            ->add('names',TextType::class,['label'=>'Избери име', 'required'=>false])
+            ->add('animalFacility',TextType::class,['label'=>'Животновъден обект','required'=>false])
             ->getForm();
         $holderForm->handleRequest($request);
         if($holderForm->isSubmitted() && $holderForm->isValid())
@@ -209,15 +213,16 @@ class ContractsController extends Controller
             $holder = $this->get('form_handler_service')->selectHolder($holderData,$em);
             if(is_array($holder)){
                 $this->get('session')->getFlashBag()->add('error', $holder['error']);
-                return $this->render('@Rozz/Contracts/select_holder.html.twig',['form'=>$holderForm->createView(), 'holder'=>$selectedHolder]);
+                return $this->render('@Rozz/Contracts/select_holder.html.twig',['form'=>$holderForm->createView(), 'holder'=>$selectedHolder, 'holderNames'=>$holderNamesList]);
             }else{
                 $newContract->setHolder($holder);
+                $newContract->setAnimalFacility($holderData['animalFacility']);
                 $em->persist($newContract);
                 $em->flush();
                 return $this->redirectToRoute('new_contract');
             }
         }
-        return $this->render('@Rozz/Contracts/select_holder.html.twig',['form'=>$holderForm->createView(), 'holder'=>$selectedHolder]);
+        return $this->render('@Rozz/Contracts/select_holder.html.twig',['form'=>$holderForm->createView(), 'holder'=>$selectedHolder, 'holderNames'=>$holderNamesList]);
     }
 
 

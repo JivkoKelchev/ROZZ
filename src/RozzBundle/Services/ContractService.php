@@ -314,6 +314,8 @@ class ContractService
 
             $contract->setHolder($newContract->getHolder());
 
+            $contract->setAnimalFacility($newContract->getAnimalFacility());
+
             $contract->setUser($user);
 
             $contract->setMayor($mayor);

@@ -183,6 +183,14 @@ class Contracts
      */
     private $template;
 
+    /**
+     * @var string
+     * Животновъден обект (свободен текст). Незадължително; празно => празен стринг в договора.
+     *
+     * @ORM\Column(name="animal_facility", type="string", length=255, nullable=true)
+     */
+    private $animalFacility;
+
 
 
 
@@ -586,6 +594,22 @@ class Contracts
     public function addExaminer(Examiners $examiner)
     {
         $this->examiners->add($examiner);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnimalFacility()
+    {
+        return $this->animalFacility;
+    }
+
+    /**
+     * @param string $animalFacility
+     */
+    public function setAnimalFacility($animalFacility)
+    {
+        $this->animalFacility = $animalFacility;
     }
 
 }

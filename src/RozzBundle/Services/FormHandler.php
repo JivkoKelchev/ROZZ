@@ -76,6 +76,11 @@ class FormHandler
         elseif(!$formData['egn'] && $formData['names'])
         {
             $holder = $em->getRepository(Holders::class)->findOneBy(['name'=>$formData['names']]);
+            if(!$holder){
+                //въведено е име, което не съвпада с наемател (свободен текст в полето)
+                $error ['error'] = 'Няма наемател с такова име!';
+                return $error;
+            }
             return $holder;
         }
         elseif(!$formData['egn'] && !$formData['names'])
@@ -87,6 +92,11 @@ class FormHandler
         else
         {
             $holder = $em->getRepository(Holders::class)->findOneBy(['name'=>$formData['names']]);
+            if(!$holder){
+                //въведено е име, което не съвпада с наемател (свободен текст в полето)
+                $error ['error'] = 'Няма наемател с такова име!';
+                return $error;
+            }
             if($holder->getEGN()!= $formData['egn'])
             {
                 //this holder is with different EGN

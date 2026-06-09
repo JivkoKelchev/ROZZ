@@ -1,5 +1,29 @@
 {% extends "base.html.twig" %}
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .rozz-combo { position: relative; }
+        /* Бутонът изглежда като старото падащо меню (select.form-control) */
+        .rozz-combo-toggle { text-align: left; cursor: pointer; padding-right: 28px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .rozz-combo-toggle .rozz-combo-text { color: #555; }
+        .rozz-combo-toggle.is-placeholder .rozz-combo-text { color: #999; }
+        .rozz-combo-caret { position: absolute; right: 12px; top: 50%; margin-top: -2px; }
+        .rozz-combo-menu { display: none; position: absolute; z-index: 1000; left: 0; right: 0; top: 100%;
+            background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            margin-top: 2px; }
+        .rozz-combo.open .rozz-combo-menu { display: block; }
+        .rozz-combo-search { border: 0; border-bottom: 1px solid #e5e5e5; border-radius: 4px 4px 0 0; box-shadow: none; }
+        .rozz-combo-search:focus { box-shadow: none; outline: none; }
+        .rozz-combo-list { list-style: none; margin: 0; padding: 4px 0; max-height: 240px; overflow-y: auto; }
+        .rozz-combo-option { padding: 6px 14px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        /* Подчертаване на елемента под курсора / избрания с клавиатурата */
+        .rozz-combo-option:hover, .rozz-combo-option.active { background: #337ab7; color: #fff; }
+        .rozz-combo-option.selected { font-weight: 700; }
+        .rozz-combo-empty { padding: 6px 14px; color: #999; }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div class="jumbotron" style="padding: 30px">
         <legend>
@@ -31,11 +55,154 @@
         <span id="egn-check" style="color: red"></span>{#Изписва резултата от валидатора#}
 
         <span class="col-sm-offset-2" > <b>ИЛИ</b>  </span>
-        {{ form_row(form.names) }}
+
+        {# Падащ списък с наемателите със същия стил като старото меню,
+           но с поле за търсене като първи елемент, което филтрира имената. #}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Избери име</label>
+            <div class="col-sm-10">
+                <div class="rozz-combo" data-value-input="#{{ form.names.vars.id }}">
+                    <button type="button" class="form-control rozz-combo-toggle">
+                        <span class="rozz-combo-text"></span>
+                        <span class="caret rozz-combo-caret"></span>
+                    </button>
+                    <div class="rozz-combo-menu">
+                        <input type="text" class="form-control rozz-combo-search" placeholder="Търси име..." autocomplete="off">
+                        <ul class="rozz-combo-list">
+                            {% for name in holderNames %}
+                                <li class="rozz-combo-option" data-value="{{ name }}">{{ name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {{ form_widget(form.names, {'attr': {'class': 'rozz-combo-value', 'style': 'display:none'}}) }}
+            </div>
+        </div>
+
+        {{ form_row(form.animalFacility) }}
         <input class="col-sm-offset-2" type="submit" value="Запази">
         {{ form_end(form) }}
 
     </div>
+
+    <script>
+        (function ($) {
+            $('.rozz-combo').each(function () {
+                var $combo   = $(this);
+                var $input   = $($combo.data('value-input'));   // скритото поле, което се изпраща
+                var $toggle  = $combo.find('.rozz-combo-toggle');
+                var $text    = $combo.find('.rozz-combo-text');
+                var $menu    = $combo.find('.rozz-combo-menu');
+                var $search  = $combo.find('.rozz-combo-search');
+                var $list    = $combo.find('.rozz-combo-list');
+                var $options = $list.find('.rozz-combo-option');
+                var placeholder = 'Избери име';
+
+                function setText(value) {
+                    if (value) {
+                        $text.text(value);
+                        $toggle.removeClass('is-placeholder');
+                    } else {
+                        $text.text(placeholder);
+                        $toggle.addClass('is-placeholder');
+                    }
+                }
+
+                function syncSelected() {
+                    var value = $input.val();
+                    $options.removeClass('selected');
+                    if (value) {
+                        $options.filter(function () { return $(this).data('value') == value; }).addClass('selected');
+                    }
+                    setText(value);
+                }
+
+                function visibleOptions() { return $options.filter(':visible'); }
+
+                function setActive($opt) {
+                    $options.removeClass('active');
+                    if ($opt && $opt.length) {
+                        $opt.addClass('active');
+                        // дръж активния в полезрението
+                        var ot = $opt.position().top, oh = $opt.outerHeight(), st = $list.scrollTop(), lh = $list.height();
+                        if (ot < 0) { $list.scrollTop(st + ot); }
+                        else if (ot + oh > lh) { $list.scrollTop(st + ot + oh - lh); }
+                    }
+                }
+
+                function filter(term) {
+                    term = (term || '').toLowerCase();
+                    var anyVisible = false;
+                    $options.each(function () {
+                        var match = $(this).text().toLowerCase().indexOf(term) !== -1;
+                        $(this).toggle(match);
+                        if (match) { anyVisible = true; }
+                    });
+                    $list.find('.rozz-combo-empty').remove();
+                    if (!anyVisible) {
+                        $list.append('<li class="rozz-combo-empty">Няма съвпадения</li>');
+                    }
+                    setActive(visibleOptions().first());
+                }
+
+                function open() {
+                    $combo.addClass('open');
+                    $search.val('');
+                    filter('');
+                    var $sel = $options.filter('.selected:visible').first();
+                    setActive($sel.length ? $sel : visibleOptions().first());
+                    $search.focus();
+                }
+
+                function close() { $combo.removeClass('open'); }
+
+                function choose($opt) {
+                    if (!$opt || !$opt.length) { return; }
+                    $input.val($opt.data('value'));
+                    syncSelected();
+                    close();
+                    $toggle.focus();
+                }
+
+                $toggle.on('click', function (e) {
+                    e.preventDefault();
+                    $combo.hasClass('open') ? close() : open();
+                });
+
+                $search.on('input', function () { filter($(this).val()); });
+
+                $search.on('keydown', function (e) {
+                    var $vis = visibleOptions();
+                    var $active = $vis.filter('.active');
+                    var idx = $vis.index($active);
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        setActive($vis.eq(Math.min(idx + 1, $vis.length - 1)));
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        setActive($vis.eq(Math.max(idx - 1, 0)));
+                    } else if (e.key === 'Enter') {
+                        e.preventDefault(); // да не изпраща формата
+                        choose($active.length ? $active : $vis.first());
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        close();
+                        $toggle.focus();
+                    }
+                });
+
+                $list.on('mouseenter', '.rozz-combo-option', function () { setActive($(this)); });
+                $list.on('click', '.rozz-combo-option', function () { choose($(this)); });
+
+                // затваряне при клик извън компонента
+                $(document).on('mousedown', function (e) {
+                    if (!$combo.is(e.target) && $combo.has(e.target).length === 0) { close(); }
+                });
+
+                syncSelected();
+            });
+        })(jQuery);
+    </script>
 {% endblock %}
 
 {% block js %}

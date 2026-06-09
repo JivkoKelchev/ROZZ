@@ -131,6 +131,14 @@ class NewContracts
     private $currency;
 
     /**
+     * @var string
+     * Животновъден обект (свободен текст). Незадължително; празно => празен стринг в договора.
+     *
+     * @ORM\Column(name="animal_facility", type="string", length=255, nullable=true)
+     */
+    private $animalFacility;
+
+    /**
      * @var Mayors
      * Не се ползва в базата,
      * използва се за съвместимост на contract_preview и contract_view
@@ -445,6 +453,22 @@ class NewContracts
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnimalFacility()
+    {
+        return $this->animalFacility;
+    }
+
+    /**
+     * @param string $animalFacility
+     */
+    public function setAnimalFacility($animalFacility)
+    {
+        $this->animalFacility = $animalFacility;
     }
 
 

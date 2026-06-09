@@ -13,7 +13,7 @@ namespace RozzBundle\Services;
 class DocxGenerator
 {
     const FONT = 'Times New Roman';
-    const SIZE = 28; // 14pt в half-points
+    const SIZE = 24; // 12pt в half-points
 
     /**
      * @param string $html HTML на договора (след заместване на токените)
